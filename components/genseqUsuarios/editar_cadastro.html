@@ -1,0 +1,63 @@
+<div class="row">
+	<div class="col-lg-12">
+		<h1 class="page-header">Editar Cadastro</h1>
+	</div>
+	<!-- /.col-lg-12 -->
+</div>
+<!-- /.row -->
+<div class="row" ng-controller="UsuarioController as vm">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-lg-6">
+						<form role="form" ng-submit="vm.update()">
+
+							<div class="form-group">
+								<label for="cadastro__nome">Nome Completo</label>
+								<input type="text" class="form-control" id="cadastro__nome" placeholder="Charles Darwin" ng-model="vm.usuario.nome" pattern="[a-zA-Z]+" title="Nome do usuário deve conter apenas letras">
+							</div>
+
+							<fieldset disabled>
+								<div class="form-group">
+									<label for="cadastro__email">Email</label>
+									<input type="email" class="form-control" id="cadastro__email" placeholder="meuemail@dominio.com.br" ng-model="vm.usuario.email">
+								</div>
+							</fieldset>
+
+
+							<div class="form-group">
+								<label for="cadastro__telefone">Telefone</label>
+								<input type="text" class="form-control" id="cadastro__nome" placeholder="(41)0000-0000" ng-model="vm.usuario.telefone">
+							</div>
+
+							<div class="form-group">
+								<label for="cadastro__password">Senha</label>
+								<input type="password" class="form-control" id="cadastro__password" placeholder="minhasenha" ng-model="vm.usuario.password">
+							</div>
+
+							<div class="form-group">
+								<label for="cadastro__confirm_password">Confirmar Senha</label>
+								<input type="password" class="form-control" id="cadastro__confirm_password" placeholder="minhasenha" ng-model="vm.usuario.confirm_password">
+							</div>
+
+							<div class="form-group">
+								<button type="submit" class="btn btn-default">Salvar</button>
+								<button type="button" class="btn btn-danger" ng-click="vm.activate()">Update </button>
+							</div>
+
+						</form>
+					</div>
+
+					<!-- /.col-lg-6 (nested) -->
+				</div>
+				<!-- /.row (nested) -->
+			</div>
+			<!-- /.panel-body -->
+		</div>
+		<!-- /.panel -->
+	</div>
+	<!-- /.col-lg-12 -->
+</div>
+<!-- /.row -->

@@ -1,0 +1,48 @@
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header"> Sistema</h1>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- /.row -->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-6">
+						<div class="panel panel-default">
+							<div class="panel-heading"> Cadastrar Sistema</div>
+							<div class="panel-body">
+								<form role="form" ng-submit="vm.submit()">
+									<div class="form-group">
+										<input type="text" class="form-control" id="sistema__descricao" placeholder="Descricao " ng-model="vm.descricao">
+									</div>
+									<button type="submit" class="btn btn-default">Cadastrar</button>
+									<button type="reset" class="btn btn-default">Limpar</button>
+								</form>
+							</div>
+						</div>
+                    </div>
+                    <div class="col-lg-6">
+						<div class="panel panel-default">
+							<div class="panel-heading">Sistemas Existentes</div>
+							<div class="panel-body">
+								<ul class="list-group" ng-repeat="registro in vm.lista_sistemas">
+									<li class="list-group-item col-lg-12">
+									{{registro.descricao}}
+										<button type="button" class="btn btn-danger pull-right btn-xs" ng-click="vm.destroy($index)">Excluir</button>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+                </div>
+            </div>
+                <!-- /.row (nested) -->
+        </div>
+            <!-- /.panel-body -->
+    </div>
+        <!-- /.panel -->
+</div>
+    <!-- /.col-lg-12 -->
