@@ -160,6 +160,7 @@ angular
          templateUrl:'components/genseqServicos/servicos.html',
          url:'/servicos',
          controller:'ServicosController',
+		 controllerAs:'vm',
          resolve: {
              loadMyFile:function($ocLazyLoad) {
                  return $ocLazyLoad.load({
@@ -178,6 +179,7 @@ angular
           templateUrl:'components/genseqSistemas/sistemas.html',
           url:'/sistemas',
           controller:'SistemasController',
+		  controllerAs:'vm',
           resolve: {
               loadMyFile:function($ocLazyLoad) {
                   return $ocLazyLoad.load({
@@ -196,6 +198,7 @@ angular
            templateUrl:'components/genseqKitDeplecao/kit_deplecao.html',
            url:'/kit_deplecao',
            controller:'KitDeplecaoController',
+		   controllerAs:'vm',
            resolve: {
                loadMyFile:function($ocLazyLoad) {
                    return $ocLazyLoad.load({
@@ -214,6 +217,7 @@ angular
             templateUrl:'components/genseqProjetos/projetos.html',
             url:'/projetos',
             controller:'ProjetosController',
+			controllerAs:'vm',
             resolve: {
                 loadMyFile:function($ocLazyLoad) {
                     return $ocLazyLoad.load({
@@ -234,6 +238,7 @@ angular
           templateUrl:'components/genseqUsuarios/novo_usuario.html',
           url:'/novo_usuario',
           controller:'UsuariosController',
+		  controllerAs:'vm',
           resolve: {
               loadMyFile:function($ocLazyLoad) {
                   return $ocLazyLoad.load({
