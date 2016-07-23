@@ -102,8 +102,27 @@ angular
         url:'/blank'
     })
       .state('login',{
-        templateUrl:'views/pages/login.html',
-        url:'/login'
+        templateUrl:'components/genseqLogin/login.html',
+        url:'/login',
+        controller:'LoginController',
+        controllerAs:'vm',
+        resolve: {
+            loadMyFile:function($ocLazyLoad) {
+                return $ocLazyLoad.load({
+                    name:'sbAdminApp',
+                    files:[
+                        'components/genseqLogin/loginService.js',
+                        'components/genseqLogin/loginController.js',////
+                        'shared/genseqAutenticacao/autenticacaoService.js'
+                    ]
+                }),
+                $ocLazyLoad.load(
+                {
+                  name:'ngCookies',
+                  files:['bower_components/angular-cookies/angular-cookies.js']
+                })
+            }
+        }
     })
       .state('dashboard.chart',{
         templateUrl:'views/chart.html',
@@ -253,6 +272,6 @@ angular
       })
 
 
-     /////////
+     //////////
     <!--  End of module declarations -->
     }]);

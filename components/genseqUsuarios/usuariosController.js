@@ -9,6 +9,7 @@
 		var vm = this;
 
 		vm.usuario = undefined;
+		vm.registro = registro;
 
 		activate();
 
@@ -35,5 +36,9 @@
 			function usuarioErrorFn(data, status, headers, config) {
 				SnackBar.error(data.error);
 			}
+		}
+
+		function registro() {
+			Usuario.registro(vm.email, vm.password, vm.nome);
 		}
 	}
