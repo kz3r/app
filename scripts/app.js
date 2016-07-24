@@ -242,10 +242,10 @@ angular
                     return $ocLazyLoad.load({
                         name:'sbAdminApp',
                         files:[
+							'components/genseqProjetos/projetosController.js',
                             'components/genseqProjetos/projetosService.js',
-                            'components/genseqProjetos/projetosController.js',
-                            'components/genseqUsuarios/usuariosService.js',
-                            'components/genseqInstituicoes/intituicoesService.js',
+							'components/genseqInstituicao/instituicaoService.js',
+							'components/genseqUsuarios/usuariosService.js',
                         ]
                     })
                 }

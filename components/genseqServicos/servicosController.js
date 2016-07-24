@@ -1,10 +1,9 @@
-'use strict'
+'use strict';
 
-angular.module('sbAdminApp')
+	angular.module('sbAdminApp')
 		.controller('ServicosController', ServicosController);
 
 	ServicosController.$inject = [ '$rootScope', '$scope', 'Servico'];
-
 
 	function ServicosController( $rootScope, $scope, Servico){
 		var vm = this;
@@ -13,25 +12,21 @@ angular.module('sbAdminApp')
 		vm.lista_servicos=[];
 		activate();
 
-
-
 		function submit() {
 
 			Servico.submit(vm.descricao).then(servicosSuccessFn, servicosErrorFn);
-
+			
 			function servicosSuccessFn(data, status, headers, config) {
-				vm.lista_servicos.unshift({
-				descricao: vm.descricao
-				});
 				vm.descricao = [];
-				SnackBar.show({ pos: 'bottom-center', text: 'Serviço adicionado com sucesso!', actionText: 'Ocultar', actionTextColor: '#00FF00'});
+				activate();
+				SnackBar.show({ pos: 'bottom-center', text: 'Serviço adicionado com sucesso!', actionText: 'Ocultar', actionTextColor: '#00FF00'});	
 			}
 			function servicosErrorFn(data, status, headers, config) {
-				SnackBar.show({ pos: 'bottom-center', text: 'Serviço não pode ser adicionado!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
+				SnackBar.show({ pos: 'bottom-center', text: 'Serviço não pode ser adicionado!', actionText: 'Ocultar', actionTextColor: '#FF0000'});	
 			}
 		}
 		function destroy(id) {
-			Servico.destroy(vm.lista_servicos[id].descricao).then(delservicosSuccessFn, delservicosErrorFn);
+			Servico.destroy(vm.lista_servicos[id].id).then(delservicosSuccessFn, delservicosErrorFn);
 
 		  function delservicosSuccessFn(data, status, headers, config) {
 			activate();
@@ -52,6 +47,6 @@ angular.module('sbAdminApp')
 			  function servicosErrorFn(data, status, headers, config) {
 				SnackBar.show({ pos: 'bottom-center', text: 'Erro ao carregar serviços!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
 			  }
-
+			 
 		}
 	}
