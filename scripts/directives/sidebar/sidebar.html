@@ -16,9 +16,18 @@
 
             <!-- GENSEQ MENUS -->
 
-            <li ui-sref-active="active">
-                <a ui-sref="dashboard.novo_usuario"><i class="fa fa-user fa-fw"></i> Novo Usuario</a>
-            </li>
+            <li ng-class="{active: collapseVar==21}">{{dropDown}}
+                <a href="" ng-click="check(21)"><i class="fa fa-user fa-fw"></i> Usuários<span
+                        class="fa arrow"></span></a>
+                <ul class="nav nav-second-level" collapse="collapseVar!=21">
+                    <li ui-sref-active="active">
+                        <a ui-sref="dashboard.novo_usuario"><i class="fa fa-plus-square fa-fw"></i> Novo Usuario</a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="dashboard.editar_cadastro"><i class="fa fa-edit fa-fw"></i> Editar Cadastro</a>
+                    </li>
+				</ul>
+			</li>
 
             <li ui-sref-active="active">
                 <a ui-sref="dashboard.sistemas"><i class="fa fa-desktop fa-fw"></i> Sistemas</a>

@@ -271,7 +271,26 @@ angular
           }
       })
 
+      <!-- Modulo Editar Cadastro -->
+      .state('dashboard.editar_cadastro',{
+           templateUrl:'components/genseqUsuarios/editar_cadastro.html',
+           url:'/editar_cadastro',
+           controller:'UsuariosController',
+ 		   controllerAs:'vm',
+           resolve: {
+               loadMyFile:function($ocLazyLoad) {
+                   return $ocLazyLoad.load({
+                       name:'sbAdminApp',
+                       files:[
+                           'components/genseqUsuarios/usuariosService.js',
+                           'components/genseqUsuarios/usuariosController.js',
+                       ]
+                   })
+               }
+           }
+       })
 
-     //////////
+
+     ///////////
     <!--  End of module declarations -->
     }]);

@@ -49,7 +49,7 @@
 
 			function loginSuccess(data, status, headers, config) {
 				Autenticacao.setAuthenticatedUser(data.data);
-				window.location = '/#/dashboard/novo_usuario'; //CHECK EFFECT
+				window.location = '/#/dashboard/home'; //CHECK EFFECT
 			}
 
 			function loginError(data, status, headers, config) {
