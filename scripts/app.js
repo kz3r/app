@@ -251,7 +251,25 @@ angular
                 }
             }
         })
-
+		<!-- Modulo Amostras -->
+		.state('dashboard.amostras',{
+            templateUrl:'components/genseqAmostras/amostras.html',
+            url:'/amostras',
+            controller:'AmostrasController',
+			controllerAs:'vm',
+            resolve: {
+                loadMyFile:function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name:'sbAdminApp',
+                        files:[
+							'components/genseqAmostras/amostrasController.js',
+                     'components/genseqAmostras/amostrasService.js',
+							'components/genseqProjetos/projetosService.js',
+                        ]
+                    })
+                }
+            }
+        })
      <!-- Modulo Novo Usuario -->
      .state('dashboard.novo_usuario',{
           templateUrl:'components/genseqUsuarios/novo_usuario.html',
