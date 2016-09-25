@@ -38,8 +38,8 @@
 			return $http.get('http://127.0.0.1:8000/genseq_api/amostra/');
 		}
 
-		function destroy(nome) {
-			return $http.delete('http://127.0.0.1:8000/genseq_api/amostra/' + nome + '/');
+		function destroy(id) {
+			return $http.delete('http://127.0.0.1:8000/genseq_api/amostra/' + id + '/');
 		}
 		
 		function add_projetoamostra (id_projeto, id_amostra, responsavel_envio){

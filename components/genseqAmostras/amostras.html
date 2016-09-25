@@ -58,6 +58,7 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
+								<th></th>
 								<th>Organismo</th>
 								<th>Observação</th>
 								<th>Serviço</th>
@@ -67,6 +68,11 @@
 						</thead>
 						<tbody ng-repeat="registro in vm.lista_amostra_projeto">
 							<tr ng-click="vm.edit_registro($index)">
+								<td ng-if="registro.autorizado_em == null">
+									<button class="btn btn-danger btn-xs" type="submit" ng-click="vm.remove(registro)">
+										<i class="fa fa-times" ></i>
+									</button>
+								</td>
 								<td>{{registro.amostra.organismo}}</td>
 								<td>{{registro.amostra.observacao}}</td>
 								<td>{{registro.amostra.servico.descricao}}</td>
@@ -115,19 +121,16 @@
 										  <option value="O">Organismo</option>
 										  <option value="G">Gel</option>
 								   </select>
-									{{vm.tipo_organismo}}
 							</div>
 							<div class="form-group">
 								<label>Sistema</label>
 								<select class="selectpicker"  ng-model="vm.sistema" ng-options="sistema.descricao for sistema in vm.lista_sistemas" required>
 								   </select>
-									{{vm.sistema}}
 							</div>
 							<div class="form-group">
 								<label>Servico</label>
 								<select class="selectpicker"  ng-model="vm.servico" ng-options="servico.descricao for servico in vm.lista_servicos" required>
 								   </select>
-									{{vm.servico}}
 							</div>
 							<div class="btn-toolbar">
 								<button type="reset" class="btn btn-sm btn-danger pull-right" ng-click="vm.limpar_amostra()">&nbsp;&nbsp;<i class="fa fa-times"></i> Limpar&nbsp;&nbsp;&nbsp;</button> 

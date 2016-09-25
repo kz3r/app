@@ -10,6 +10,7 @@ angular.module('sbAdminApp')
 		vm.listar_projetos = listar_projetos;
 		vm.edit_registro = edit_registro;
 		vm.submit = submit;
+		vm.remove = remove;
 		vm.lista_projetos=[];
 		vm.lista_amostras=[];
 		vm.lista_sistemas=[];
@@ -74,8 +75,8 @@ angular.module('sbAdminApp')
 				vm.tipo_organismo = [];
 				vm.organismo= [];
 				listar_projetos();
-				vm.lista_amostra_projeto = vm.lista_projetos[vm.index].amostras;
 				$('#AddAmostraModal').modal('hide');
+				$('#EditProjetoModal').modal('hide');
 				SnackBar.show({ pos: 'bottom-center', text: 'Amostra adicionada com sucesso!', actionText: 'Ocultar', actionTextColor: '#00FF00'});
 				
 			  }
@@ -83,5 +84,20 @@ angular.module('sbAdminApp')
 			  function amostraErrorFn(data, status, headers, config) {
 				SnackBar.show({ pos: 'bottom-center', text: 'Projeto não pode ser adicionado!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
 			  }
+		}
+		
+		function remove(registro){
+			
+			Amostra.destroy(registro.amostra.id).then(amostraSuccessFn, amostraErrorFn);			
+	
+			function amostraSuccessFn(data, status, headers, config) {
+				
+				listar_projetos();
+				$('#EditProjetoModal').modal('hide');
+			}
+
+			function amostraErrorFn(data, status, headers, config) {
+				SnackBar.show({ pos: 'bottom-center', text: 'Membro não pode ser excluido!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
+			}
 		}
 	}
