@@ -265,6 +265,8 @@ angular
 							'components/genseqAmostras/amostrasController.js',
                      'components/genseqAmostras/amostrasService.js',
 							'components/genseqProjetos/projetosService.js',
+							'components/genseqServicos/servicosService.js',
+							'components/genseqSistemas/sistemasService.js',
                         ]
                     })
                 }

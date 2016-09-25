@@ -10,48 +10,28 @@
 			listar_amostras: listar_amostras,
 			destroy: destroy,
 			update:update,
-			add_membros:add_membros,
-			update_membros:update_membros,
-			delete_membro:delete_membro
+			add_projetoamostra: add_projetoamostra
 		};
 
 		return Amostra;
 
-		function submit(nome, descricao, instituicao){
+		function submit(sistema, servico, tipo_organismo, status, organismo){
 			return $http.post('http://127.0.0.1:8000/genseq_api/amostra/',{
-				nome: nome,
-				descricao: descricao,
-				instituicao: instituicao
+				sistema: sistema,
+				servico: servico,
+				tipo: tipo_organismo,
+				status: status,
+				organismo: organismo
 			});
 		}
 		
-		function update(id,nome, descricao, instituicao,membros){
+		function update(sistema, servico, tipo_organismo, status, organismo){
 			return $http.put('http://127.0.0.1:8000/genseq_api/amostra/' + id + '/',{
-				id: id,
-				nome: nome,
-				descricao: descricao,
-				instituicao: instituicao,
-				membros:membros
-			});
-		}
-		function update_membros(id,usuario,amostra,papel){
-			return $http.put('http://127.0.0.1:8000/genseq_api/usuarioamostra/' + id + '/',{
-				id: id,
-				usuario: usuario,
-				amostra: amostra,
-				papel: papel
-			});
-		}
-		function add_membros(usuario,amostra,papel){
-			return $http.post('http://127.0.0.1:8000/genseq_api/usuarioamostra/',{
-				usuario: usuario,
-				amostra: amostra,
-				papel: papel
-			});
-		}
-		function delete_membro(id){
-			return $http.delete('http://127.0.0.1:8000/genseq_api/usuarioamostra/'+ id + '/',{
-				id:id
+				sistema: sistema,
+				servico: servico,
+				tipo: tipo_organismo,
+				status: status,
+				organismo: organismo
 			});
 		}
 		function listar_amostras(){
@@ -60,5 +40,13 @@
 
 		function destroy(nome) {
 			return $http.delete('http://127.0.0.1:8000/genseq_api/amostra/' + nome + '/');
+		}
+		
+		function add_projetoamostra (id_projeto, id_amostra, responsavel_envio){
+			return $http.post('http://127.0.0.1:8000/genseq_api/projetoamostra/',{
+				projeto: id_projeto,
+				amostra: id_amostra,
+				responsavel_envio: responsavel_envio
+			});
 		}
 	}]);
