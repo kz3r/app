@@ -4,9 +4,9 @@
 		.module('sbAdminApp')
 		.factory('Autenticacao', Autenticacao);
 
-	Autenticacao.$inject = ['$cookies', '$http'];
+	Autenticacao.$inject = ['$cookies', '$http','$localStorage'];
 
-	function Autenticacao($cookies,$http) {
+	function Autenticacao($cookies, $http, $localStorage) {
 
 
     	var GENSEQ_API_Server = 'http://127.0.0.1:8000/genseq_api/';
@@ -17,64 +17,23 @@
 			//logout: logout,
 			setAuthenticatedUser: setAuthenticatedUser,
 			getAuthenticatedUser: getAuthenticatedUser,
+			getLocalUser: getLocalUser,
 			isAuthenticated: isAuthenticated,
 			unauthenticate: unauthenticate
 		};
 
 		return Autenticacao;
-/*
-		function registro(email, password, nome){
-			return $http.post('http://127.0.0.1:8000/genseq_api/usuarios/',{
-				email: email,
-				password: password,
-				nome: nome
-			}).then(registroSuccess, registroError);
 
-			//Se o usuário foi registrado com sucesso, faz login
-			//VERIFICAR UTILIZAÇÃO DESSA FUNÇÃO NO NOSSO CONTEXTO
-			function registroSuccess(data, status, headers, config) {
-				Autenticacao.login(email, password);
-			}
+		function setAuthenticatedUser(user_info) {
+			// $cookies.authenticatedUser = JSON.stringify(usuario);
+			//var json_user = JSON.parse(user_info);
 
-			function registroError(data, status, headers, config) {
-				console.error('Erro no registro! *sad face* ')
-			}
-		}
+			//$cookies.authenticatedUser = ('authkey ' + btoa(user_info.email)) ;
+			$cookies.authenticatedUser = ('user: ' + user_info);
+			$localStorage.user = user_info;
 
-		function login(email, password) {
-			return $http.post('http://127.0.0.1:8000/genseq_api/login/',{
-				email: email,
-				password: password
-			}).then(loginSuccess, loginError);
-
-			function loginSuccess(data, status, headers, config) {
-				Autenticacao.setAuthenticatedUser(data.data);
-				window.location = '/#/dashboard/novo_usuario'; //CHECK EFFECT
-			}
-
-			function loginError(data, status, headers, config) {
-				console.error('Login Error! *sad face* ');
-			}
-		}
-
-		function logout() {
-			return $http.post( GENSEQ_API_Server + 'logout/').then(
-				logoutSuccess, logoutError);
-
-			function logoutSuccess(data, status, headers, config) {
-				Autenticacao.unauthenticate();
-
-				window.location = '/#/dashboard';
-			}
-
-			function logoutError(data, status, headers, config) {
-				cosole.error('Erro ao tentar logout! *sad face* ')
-			}
-
-		}*/
-
-		function setAuthenticatedUser(usuario) {
-			$cookies.authenticatedUser = JSON.stringify(usuario);
+			//Tentativa de settar algum componente próprio de autenticação
+			//var authdata = Base64.encode(
 		}
 
 		function getAuthenticatedUser(){
@@ -85,11 +44,20 @@
 			return JSON.parse($cookies.authenticatedUser);
 		}
 
+		function getLocalUser() {
+			if($localStorage.user) {
+				return $localStorage.user
+		 	} else {
+		 		return null;
+			}
+		}
+
 		function isAuthenticated() {
 			return !!$cookies.authenticatedUser;
 		}
 
 		function unauthenticate() {
 			delete $cookies.authenticatedUser;
+			$localStorage.user = null;
 		}
 	}

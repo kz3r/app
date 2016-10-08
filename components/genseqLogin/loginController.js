@@ -3,20 +3,22 @@
 	angular.module('sbAdminApp')
 		.controller('LoginController', LoginController);
 
-	LoginController.$inject = ['$location', '$scope', 'Login', 'Autenticacao'];
+	LoginController.$inject = ['$location', '$scope', '$localStorage', 'Login', 'Autenticacao'];
 
 
-	function LoginController($location, $scope, Login, Autenticacao){
+	function LoginController($location, $scope, $localStorage, Login, Autenticacao){
 		var vm = this;
 
 		vm.login = login;
 
-		//activate();
+		activate();
 
 		function activate() {
+			if ( $localStorage.user != null) { console.log($localStorage.user); }
 			if (Autenticacao.isAuthenticated()){
 				$location.url('/');
 			}
+
 		}
 
 		function login() {

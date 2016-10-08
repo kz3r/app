@@ -15,7 +15,7 @@
 
 		/** Activate é evocado no momento em que o controller é instanciado **/
 		function activate() {
-			//var emailUsuario = $routeParams.username.substr(1); // TODO Check $routeParams.username
+			var emailUsuario = $routeParams.username.substr(1); // TODO Check $routeParams.username
 			Usuario.get('Papyrus').then(usuarioSuccessFn, usuarioErrorFn);
 
 			function usuarioSuccessFn(data, status, headers, config) {

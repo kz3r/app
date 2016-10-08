@@ -84,11 +84,23 @@ angular
               name:'sbAdminApp',
               files:[
               'scripts/controllers/main.js',
+              'shared/genseqAutenticacao/autenticacaoService.js',
+              'scripts/directives/restrict/restrict.js',
               'scripts/directives/timeline/timeline.js',
               'scripts/directives/notifications/notifications.js',
               'scripts/directives/chat/chat.js',
               'scripts/directives/dashboard/stats/stats.js'
               ]
+            }),
+            $ocLazyLoad.load(
+            {
+              name:'ngCookies',
+              files:['bower_components/angular-cookies/angular-cookies.js']
+            }),
+            $ocLazyLoad.load(
+            {
+              name:'ngStorage',
+              files:['bower_components/ngstorage/ngStorage.js']
             })
           }
         }
@@ -112,14 +124,19 @@ angular
                     name:'sbAdminApp',
                     files:[
                         'components/genseqLogin/loginService.js',
-                        'components/genseqLogin/loginController.js',////
-                        'shared/genseqAutenticacao/autenticacaoService.js'
+                        'shared/genseqAutenticacao/autenticacaoService.js',
+                        'components/genseqLogin/loginController.js'
                     ]
                 }),
                 $ocLazyLoad.load(
                 {
                   name:'ngCookies',
                   files:['bower_components/angular-cookies/angular-cookies.js']
+                }),
+                $ocLazyLoad.load(
+                {
+                  name:'ngStorage',
+                  files:['bower_components/ngstorage/ngStorage.js']
                 })
             }
         }
@@ -296,7 +313,7 @@ angular
            templateUrl:'components/genseqUsuarios/editar_cadastro.html',
            url:'/editar_cadastro',
            controller:'UsuariosController',
- 		   controllerAs:'vm',
+           controllerAs:'vm',
            resolve: {
                loadMyFile:function($ocLazyLoad) {
                    return $ocLazyLoad.load({
@@ -309,8 +326,5 @@ angular
                }
            }
        })
-
-
-     ///////////
     <!--  End of module declarations -->
     }]);

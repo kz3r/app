@@ -15,8 +15,8 @@
             </li>
 
             <!-- GENSEQ MENUS -->
-
-            <li ng-class="{active: collapseVar==21}">{{dropDown}}
+            <!-- TESTE DA RESTRICT ACCESS, A COMPARAÇÃO NÃO PRECISA SER NECESSARIAMENTE ESSA  -->
+            <li restrict access="admin" ng-class="{active: collapseVar==21}">{{dropDown}}
                 <a href="" ng-click="check(21)"><i class="fa fa-user fa-fw"></i> Usuários<span
                         class="fa arrow"></span></a>
                 <ul class="nav nav-second-level" collapse="collapseVar!=21">
@@ -26,8 +26,8 @@
                     <li ui-sref-active="active">
                         <a ui-sref="dashboard.editar_cadastro"><i class="fa fa-edit fa-fw"></i> Editar Cadastro</a>
                     </li>
-				</ul>
-			</li>
+	              </ul>
+            </li>
 
             <li ui-sref-active="active">
                 <a ui-sref="dashboard.sistemas"><i class="fa fa-desktop fa-fw"></i> Sistemas</a>
@@ -52,9 +52,10 @@
             <li ui-sref-active="active">
                 <a ui-sref="dashboard.projetos"><i class="fa fa-folder-open fa-fw"></i> Projetos</a>
             </li>
-				<li ui-sref-active="active">
+				    <li ui-sref-active="active">
                 <a ui-sref="dashboard.amostras"><i class="fa fa-flask fa-fw"></i> Amostras</a>
             </li>
+
             <!-- Template Menus -->
             <li ui-sref-active="active">
                 <a ui-sref="dashboard.form"><i class="fa fa-edit fa-fw"></i> Forms</a>
