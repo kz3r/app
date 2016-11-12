@@ -15,13 +15,14 @@
 
 		return Amostra;
 
-		function submit(sistema, servico, tipo_organismo, status, organismo){
+		function submit(sistema, servico, tipo_organismo, status, organismo, observacao){
 			return $http.post('http://127.0.0.1:8000/genseq_api/amostra/',{
 				sistema: sistema,
 				servico: servico,
 				tipo: tipo_organismo,
 				status: status,
-				organismo: organismo
+				organismo: organismo,
+				observacao:observacao
 			});
 		}
 		

@@ -132,6 +132,11 @@
 								<select class="selectpicker"  ng-model="vm.servico" ng-options="servico.descricao for servico in vm.lista_servicos" required>
 								   </select>
 							</div>
+							<div class="form-group"> 
+                                <label>Observacao</label>
+								<input type="text" class="form-control" id="projeto__observacao" name="projeto__organismo" placeholder="Observacao " ng-model="vm.observacao" />
+	
+							</div>
 							<div class="btn-toolbar">
 								<button type="reset" class="btn btn-sm btn-danger pull-right" ng-click="vm.limpar_amostra()">&nbsp;&nbsp;<i class="fa fa-times"></i> Limpar&nbsp;&nbsp;&nbsp;</button> 
 								<button type="submit" class="btn btn-sm btn-success pull-right" onclick="projeto__form.$valid"><i class="fa fa-check"></i> Cadastrar</button>

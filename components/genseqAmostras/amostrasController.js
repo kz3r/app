@@ -63,7 +63,7 @@ angular.module('sbAdminApp')
 		}
 		function submit(){
 		vm.status = 1;
-		Amostra.submit(vm.sistema.id,vm.servico.id,vm.tipo_organismo, vm.status, vm.organismo).then(amostraSuccessFn, amostraErrorFn);
+		Amostra.submit(vm.sistema.id,vm.servico.id,vm.tipo_organismo, vm.status, vm.organismo, vm.observacao).then(amostraSuccessFn, amostraErrorFn);
 
 			function amostraSuccessFn(data, status, headers, config) {
 				vm.resposta = angular.fromJson(data);
@@ -74,6 +74,7 @@ angular.module('sbAdminApp')
 				vm.servico = [];
 				vm.tipo_organismo = [];
 				vm.organismo= [];
+				vm.observacao= [];
 				listar_projetos();
 				$('#AddAmostraModal').modal('hide');
 				$('#EditProjetoModal').modal('hide');

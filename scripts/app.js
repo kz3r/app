@@ -289,6 +289,28 @@ angular
                 }
             }
         })
+		<!-- Modulo Corridas -->
+		.state('dashboard.corridas',{
+            templateUrl:'components/genseqCorridas/corridas.html',
+            url:'/corridas',
+            controller:'CorridasController',
+			controllerAs:'vm',
+            resolve: {
+                loadMyFile:function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name:'sbAdminApp',
+                        files:[
+							'components/genseqCorridas/corridasController.js',
+                     'components/genseqCorridas/corridasService.js',
+							'components/genseqAmostras/amostrasService.js',
+							'components/genseqServicos/servicosService.js',
+							'components/genseqSistemas/sistemasService.js',
+							'components/genseqKitDeplecao/kitDeplecaoService.js',
+                        ]
+                    })
+                }
+            }
+        })
      <!-- Modulo Novo Usuario -->
      .state('dashboard.novo_usuario',{
           templateUrl:'components/genseqUsuarios/novo_usuario.html',
