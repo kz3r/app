@@ -3,13 +3,14 @@
 angular.module('sbAdminApp')
 		.controller('CorridasController', CorridasController);
 
-	CorridasController.$inject = ['$rootScope', '$scope', 'Corrida','Amostra','Sistema', 'Servico', 'KitDeplecao'];
+	CorridasController.$inject = ['$rootScope', '$scope','$localStorage', 'Corrida','Amostra','Sistema', 'Servico', 'KitDeplecao'];
 
-	function CorridasController($rootScope, $scope, Corrida, Amostra, Sistema, Servico, KitDeplecao){
+	function CorridasController($rootScope, $scope, $localStorage, Corrida, Amostra, Sistema, Servico, KitDeplecao){
 		var vm = this;
 		vm.listar_amostras = listar_amostras;
 		vm.listar_corridas = listar_corridas;
 		vm.edit_registro = edit_registro;
+		vm.view_registro = view_registro;
 		vm.pick_amostra = pick_amostra;
 		vm.limpar_corrida = limpar_corrida;
 		vm.salvar_amostracorrida = salvar_amostracorrida;
@@ -27,12 +28,13 @@ angular.module('sbAdminApp')
 		vm.lista_kitdeplecao= [];
 		vm.lista_amostracorrida=[];
 		vm.lista_amostracorrida_view=[];
+		vm.usuario=$localStorage.user.id;
+		vm.nivel_acesso=$localStorage.user.nivel_acesso;
 		listar_kitdeplecao();
 		listar_amostras();
 		listar_corridas();
 		listar_sistemas();
 		listar_servicos();
-		vm.usuario=2;
 		
 		function limpar_corrida(){
 			vm.lista_amostracorrida=[];
@@ -42,7 +44,7 @@ angular.module('sbAdminApp')
 		
 		function listar_amostras() {
 			Amostra.listar_amostras().then(projetoSuccessFn, projetoErrorFn);
-
+			
 			  function projetoSuccessFn(data, status, headers, config) {
 				vm.lista_amostras = data.data;
 			  }
@@ -65,8 +67,12 @@ angular.module('sbAdminApp')
 
 		}
 		function listar_corridas() {
-			Corrida.listar_corridas().then(projetoSuccessFn, projetoErrorFn);
-
+			
+			if (vm.usuario != null && vm.nivel_acesso!= 1 ){
+				Corrida.listar_corridas_usuario(vm.usuario).then(projetoSuccessFn, projetoErrorFn);
+			}else if (vm.nivel_acesso == 1){
+				Corrida.listar_corridas().then(projetoSuccessFn, projetoErrorFn);
+			}
 			  function projetoSuccessFn(data, status, headers, config) {
 				vm.lista_corridas = data.data;
 			  }
@@ -180,6 +186,32 @@ angular.module('sbAdminApp')
 				});
 			}
 		}
+		
+		function view_registro(index) {
+			$('#ViewCorridaModal').modal('show');
+			limpar_corrida();
+			vm.index = index;
+			vm.id_corrida = vm.lista_corridas[index].id;
+			vm.id = vm.lista_corridas[index].id;
+			vm.sistema = vm.lista_corridas[index].sistema.descricao;
+			vm.servico = vm.lista_corridas[index].servico.descricao;
+			vm.detalhes = vm.lista_corridas[index].detalhes;
+			vm.lista_amostracorrida_view =vm.lista_corridas[index].amostras;
+			var i;
+			for (i in vm.lista_corridas[index].amostras){
+				vm.lista_amostracorrida.unshift({
+					
+					id: vm.lista_corridas[index].amostras[i].id,
+					amostra: vm.lista_corridas[index].amostras[i].amostra.id,
+					kit_deplecao: vm.lista_corridas[index].amostras[i].kit_deplecao.id,
+					resultado:vm.lista_corridas[index].amostras[i].resultado,
+					arquivo_gerado:vm.lista_corridas[index].amostras[i].arquivo_gerado,
+					barcode:vm.lista_corridas[index].amostras[i].barcode,
+					ciclos_pcr:vm.lista_corridas[index].amostras[i].ciclos_pcr,
+					corrida:vm.lista_corridas[index].id
+				});
+			}
+		}
 		function submit(){
 
 		Corrida.submit(vm.sistema.id,vm.servico.id,vm.detalhes).then(amostraSuccessFn, amostraErrorFn);
@@ -209,7 +241,7 @@ angular.module('sbAdminApp')
 				vm.sistema = [];
 				vm.servico = [];
 				vm.detalhes = [];
-				limpar_corrida()
+				limpar_corrida();
 				listar_corridas();
 				SnackBar.show({ pos: 'bottom-center', text: 'Corrida salva com sucesso!', actionText: 'Ocultar', actionTextColor: '#00FF00'});
 				$('#EditCorridaModal').modal('hide');
@@ -226,8 +258,8 @@ angular.module('sbAdminApp')
 			Corrida.add_amostracorrida(vm.amostra.id,vm.id_corrida, vm.kit_deplecao.id, vm.resultado, vm.arquivo_gerado, vm.barcode, vm.ciclos_pcr,vm.usuario).then(corridaSuccessFn, corridaErrorFn);
 			
 			function corridaSuccessFn(data, status, headers, config) {
-				vm.lista_amostracorrida=[];
-				vm.lista_amostracorrida_view=[];
+				
+				limpar_corrida();
 				vm.id_amostracorrida=[];
 				vm.amostra=[];
 				vm.kit_deplecao=[];

@@ -27,13 +27,12 @@
                         <a ui-sref="dashboard.editar_cadastro"><i class="fa fa-edit fa-fw"></i> Editar Cadastro</a>
                     </li>
 	              </ul>
-            </li>
-
+            </li> 
             <li ui-sref-active="active">
                 <a ui-sref="dashboard.sistemas"><i class="fa fa-desktop fa-fw"></i> Sistemas</a>
             </li>
 
-            <li ng-class="{active: collapseVar==11}">{{dropDown}}
+            <li restrict access="1" ng-class="{active: collapseVar==11}">{{dropDown}}
                 <a href="" ng-click="check(11)"><i class="fa fa-wrench fa-fw"></i> Cadastro<span
                         class="fa arrow"></span></a>
                 <ul class="nav nav-second-level" collapse="collapseVar!=11">
@@ -45,6 +44,9 @@
 					</li>
 					<li ui-sref-active="active">
 						<a ui-sref="dashboard.kit_deplecao"><i class="fa fa-search fa-fw"></i> Kit Depleção</a>
+					</li>
+					<li ui-sref-active="active">
+						<a ui-sref="dashboard.instituicao"><i class="fa fa-building fa-fw"></i> Instituição</a>
 					</li>
 				</ul>
 			</li>

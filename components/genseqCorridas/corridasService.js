@@ -8,6 +8,7 @@
 		var Corrida = {
 			submit: submit,
 			listar_amostras: listar_amostras,
+			listar_corridas_usuario: listar_corridas_usuario,
 			destroy: destroy,
 			update:update,
 			update_amostracorrida: update_amostracorrida,
@@ -38,7 +39,9 @@
 		function listar_corridas(){
 			return $http.get('http://127.0.0.1:8000/genseq_api/corrida/');
 		}
-
+		function listar_corridas_usuario(usuario){
+			return $http.get('http://127.0.0.1:8000/genseq_api/corrida?user='+ usuario);
+		}
 		function destroy(id) {
 			return $http.delete('http://127.0.0.1:8000/genseq_api/amostracorrida/' + id + '/');
 		};

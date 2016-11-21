@@ -8,8 +8,10 @@
 		var Projeto = {
 			submit: submit,
 			listar_projetos: listar_projetos,
+			listar_projetos_usuario: listar_projetos_usuario,
 			destroy: destroy,
 			update:update,
+			aprovar_projeto:aprovar_projeto,
 			add_membros:add_membros,
 			update_membros:update_membros,
 			delete_membro:delete_membro,
@@ -26,13 +28,22 @@
 			});
 		}
 		
-		function update(id,nome, descricao, instituicao,membros){
+		function update(id,nome, descricao, instituicao){
 			return $http.put('http://127.0.0.1:8000/genseq_api/projeto/' + id + '/',{
 				id: id,
 				nome: nome,
 				descricao: descricao,
-				instituicao: instituicao,
-				membros:membros
+				instituicao: instituicao
+			});
+		}
+		function aprovar_projeto (id,usuario,autorizado_em, nome, descricao, instituicao){
+			return $http.put('http://127.0.0.1:8000/genseq_api/projeto/' + id + '/',{
+				id: id,
+				autorizado_por: usuario,
+				autorizado_em: autorizado_em,
+				nome: nome,
+				descricao: descricao,
+				instituicao: instituicao
 			});
 		}
 		function update_membros(id,usuario,projeto,papel){
@@ -57,6 +68,9 @@
 		}
 		function listar_projetos(){
 			return $http.get('http://127.0.0.1:8000/genseq_api/projeto/');
+		}
+		function listar_projetos_usuario(usuario){
+			return $http.get('http://127.0.0.1:8000/genseq_api/projeto?user='+ usuario);
 		}
 		function listar_papeis(){
 			return $http.get('http://127.0.0.1:8000/genseq_api/papelprojeto/');

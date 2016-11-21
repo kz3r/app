@@ -3,9 +3,9 @@
 angular.module('sbAdminApp')
 		.controller('ProjetosController', ProjetosController);
 
-	ProjetosController.$inject = ['$rootScope', '$scope', 'Instituicao', 'Projeto','Usuario'];
+	ProjetosController.$inject = ['$rootScope', '$scope', '$localStorage', 'Instituicao', 'Projeto','Usuario'];
 
-	function ProjetosController($rootScope, $scope, Instituicao, Projeto, Usuario){
+	function ProjetosController($rootScope, $scope, $localStorage, Instituicao, Projeto, Usuario){
 		var vm = this;
 
 		vm.add_instituicao = add_instituicao;
@@ -18,7 +18,10 @@ angular.module('sbAdminApp')
 		vm.pick_instituicao = pick_instituicao;
 		vm.submit = submit;
 		vm.edit_registro = edit_registro;
+		vm.edit_registro_adm = edit_registro_adm;
 		vm.update = update;
+		vm.aprovar_projeto = aprovar_projeto;
+		vm.desaprovar_projeto = desaprovar_projeto;
 		vm.projeto = {};
 		vm.lista_projetos=[];
 		vm.lista_instituicoes=[];
@@ -26,11 +29,14 @@ angular.module('sbAdminApp')
 		vm.membros_projeto=[];
 		vm.membros_projeto_view=[];
 		vm.resposta= [];
+		vm.usuario=$localStorage.user.id;
+		vm.nivel_acesso=$localStorage.user.nivel_acesso;
 		listar_instituicoes();
 		listar_projetos();
 		listar_usuarios();
 		listar_papeis();
-
+		
+		
 		function add_instituicao(){
 
 			Instituicao.submit(vm.filtro_instituicao).then(instituicaoSuccessFn, instituicaoprojetoErrorFn);
@@ -115,8 +121,11 @@ angular.module('sbAdminApp')
 		}
 
 		function listar_projetos() {
-			Projeto.listar_projetos().then(projetoSuccessFn, projetoErrorFn);
-
+			if (vm.usuario != null && vm.nivel_acesso!= 1 ){
+				Projeto.listar_projetos_usuario(vm.usuario).then(projetoSuccessFn, projetoErrorFn);
+			}else if (vm.nivel_acesso == 1){
+				Projeto.listar_projetos().then(projetoSuccessFn, projetoErrorFn);
+			}
 			  function projetoSuccessFn(data, status, headers, config) {
 				vm.lista_projetos = data.data;
 			  }
@@ -181,13 +190,61 @@ angular.module('sbAdminApp')
 				SnackBar.show({ pos: 'bottom-center', text: 'Projeto não pode ser editado!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
 			  }
 		}
+		function aprovar_projeto(){
+			vm.autorizado_em = new Date();
+			Projeto.aprovar_projeto(vm.id,vm.usuario, vm.autorizado_em, vm.nome, vm.descricao, vm.instituicao.id).then(projetoSuccessFn, projetoErrorFn);
+			
+			function projetoSuccessFn(data, status, headers, config) {
+				listar_projetos();
+				$('#EditProjetoAdmModal').modal('hide');
+			  }
+
+			  function projetoErrorFn(data, status, headers, config) {
+				SnackBar.show({ pos: 'bottom-center', text: 'Projeto não pode ser aprovado!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
+			  }
+		}
 		
+		function desaprovar_projeto(){
+			vm.autorizado_em = null;
+			Projeto.aprovar_projeto(vm.id,vm.usuario, vm.autorizado_em, vm.nome, vm.descricao, vm.instituicao.id).then(projetoSuccessFn, projetoErrorFn);
+			
+			function projetoSuccessFn(data, status, headers, config) {
+				listar_projetos();
+				$('#EditProjetoAdmModal').modal('hide');
+			  }
+
+			  function projetoErrorFn(data, status, headers, config) {
+				SnackBar.show({ pos: 'bottom-center', text: 'Projeto não pode ser desaprovado!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
+			  }
+		}
+	
 		function edit_registro(index) {
-			$('#EditProjetoModal').modal('show');
+			
 			vm.id = vm.lista_projetos[index].id;
 			vm.nome = vm.lista_projetos[index].nome;
 			vm.descricao = vm.lista_projetos[index].descricao;
 			vm.instituicao = vm.lista_projetos[index].instituicao;
+			vm.dt_autorizacao = vm.lista_projetos[index].autorizado_em;
+			vm.membros_projeto_view =vm.lista_projetos[index].membros;
+			var i;
+			for (i in vm.lista_projetos[index].membros){
+				vm.membros_projeto.unshift({
+					id: vm.lista_projetos[index].membros[i].id,
+					usuario: vm.lista_projetos[index].membros[i].usuario.id,
+					papel:vm.lista_projetos[index].membros[i].papel,
+					projeto:vm.lista_projetos[index].id
+				});
+			}
+			$('#EditProjetoModal').modal('show');
+		}
+		
+		function edit_registro_adm(index) {
+			$('#EditProjetoAdmModal').modal('show');
+			vm.id = vm.lista_projetos[index].id;
+			vm.nome = vm.lista_projetos[index].nome;
+			vm.descricao = vm.lista_projetos[index].descricao;
+			vm.instituicao = vm.lista_projetos[index].instituicao;
+			vm.dt_autorizacao = vm.lista_projetos[index].autorizado_em;
 			vm.membros_projeto_view =vm.lista_projetos[index].membros;
 			var i;
 			for (i in vm.lista_projetos[index].membros){

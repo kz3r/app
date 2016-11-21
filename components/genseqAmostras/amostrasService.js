@@ -26,7 +26,7 @@
 			});
 		}
 		
-		function update(sistema, servico, tipo_organismo, status, organismo){
+		function update(id, sistema, servico, tipo_organismo, status, organismo){
 			return $http.put('http://127.0.0.1:8000/genseq_api/amostra/' + id + '/',{
 				sistema: sistema,
 				servico: servico,

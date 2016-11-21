@@ -248,6 +248,24 @@ angular
            }
        })
 
+		<!-- Modulo Instituicao -->
+      .state('dashboard.instituicao',{
+           templateUrl:'components/genseqInstituicao/instituicao.html',
+           url:'/instituicao',
+           controller:'InstituicaoController',
+		   controllerAs:'vm',
+           resolve: {
+               loadMyFile:function($ocLazyLoad) {
+                   return $ocLazyLoad.load({
+                       name:'sbAdminApp',
+                       files:[
+                           'components/genseqInstituicao/instituicaoService.js',
+                           'components/genseqInstituicao/instituicaoController.js',
+                       ]
+                   })
+               }
+           }
+       })
        <!-- Modulo Projetos -->
        .state('dashboard.projetos',{
             templateUrl:'components/genseqProjetos/projetos.html',
@@ -264,7 +282,12 @@ angular
 							'components/genseqInstituicao/instituicaoService.js',
 							'components/genseqUsuarios/usuariosService.js',
                         ]
-                    })
+                    }),
+						 $ocLazyLoad.load(
+						 {
+							name:'ngStorage',
+							files:['bower_components/ngstorage/ngStorage.js']
+						 })
                 }
             }
         })
@@ -285,7 +308,12 @@ angular
 							'components/genseqServicos/servicosService.js',
 							'components/genseqSistemas/sistemasService.js',
                         ]
-                    })
+                    }),
+						 $ocLazyLoad.load(
+						 {
+							name:'ngStorage',
+							files:['bower_components/ngstorage/ngStorage.js']
+						 })
                 }
             }
         })
@@ -307,7 +335,12 @@ angular
 							'components/genseqSistemas/sistemasService.js',
 							'components/genseqKitDeplecao/kitDeplecaoService.js',
                         ]
-                    })
+                    }),
+						 $ocLazyLoad.load(
+						 {
+							name:'ngStorage',
+							files:['bower_components/ngstorage/ngStorage.js']
+						 })
                 }
             }
         })
