@@ -159,12 +159,11 @@ angular.module('sbAdminApp')
 				vm.instituicao = [];
 				$('#AddProjetoModal').modal('hide');
 				SnackBar.show({ pos: 'bottom-center', text: 'Projeto adicionado com sucesso!', actionText: 'Ocultar', actionTextColor: '#00FF00'});
-				listar_projetos();
 				vm.resposta = angular.fromJson(data);
 				vm.id = vm.resposta.data.id;
 				salvar_membros();
-				vm.membros_projeto = [];
-				vm.membros_projeto_view = [];
+				limpar_membros();
+				listar_projetos();
 			  }
 
 			  function projetoErrorFn(data, status, headers, config) {
@@ -179,8 +178,7 @@ angular.module('sbAdminApp')
 				vm.descricao = [];
 				vm.nome = [];
 				vm.instituicao = [];
-				vm.membros_projeto = [];
-				vm.membros_projeto_view = [];
+				limpar_membros();
 				$('#EditProjetoModal').modal('hide');
 				SnackBar.show({ pos: 'bottom-center', text: 'Projeto editado com sucesso!', actionText: 'Ocultar', actionTextColor: '#00FF00'});
 				listar_projetos();
@@ -196,6 +194,7 @@ angular.module('sbAdminApp')
 			
 			function projetoSuccessFn(data, status, headers, config) {
 				listar_projetos();
+				limpar_membros();
 				$('#EditProjetoAdmModal').modal('hide');
 			  }
 
@@ -210,6 +209,7 @@ angular.module('sbAdminApp')
 			
 			function projetoSuccessFn(data, status, headers, config) {
 				listar_projetos();
+				limpar_membros();
 				$('#EditProjetoAdmModal').modal('hide');
 			  }
 
@@ -261,11 +261,12 @@ angular.module('sbAdminApp')
 			var i;
 			for (i in vm.membros_projeto){
 				if (vm.membros_projeto[i].id !=null){
-						Projeto.update_membros(vm.membros_projeto[i].id, vm.membros_projeto[i].usuario, vm.membros_projeto[i].projeto, vm.membros_projeto_view[i].papel.id).then(projetoSuccessFn, projetoErrorFn);
+						Projeto.update_membros(vm.membros_projeto[i].id, vm.membros_projeto[i].usuario, vm.membros_projeto[i].projeto, vm.membros_projeto[i].papel.id).then(projetoSuccessFn, projetoErrorFn);
 				}else{
 					Projeto.add_membros(vm.membros_projeto[i].usuario,vm.id, vm.membros_projeto[i].papel).then(projetoSuccessFn, projetoErrorFn);
 				}
 			}
+		
 			$('#EditMembrosModal').modal('hide');
 			
 			function projetoSuccessFn(data, status, headers, config) {
