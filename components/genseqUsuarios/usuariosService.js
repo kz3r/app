@@ -27,7 +27,7 @@
 		}
 
 		function update(perfilUsuario) {
-			return $http.put('http://127.0.0.1:8000/genseq_api/usuarios/' + emailUsuario + '/', perfilUsuario );
+			return $http.put('http://127.0.0.1:8000/genseq_api/usuarios/', perfilUsuario);
 		}
 
 		function registro(email, password, nome){
