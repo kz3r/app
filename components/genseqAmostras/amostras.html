@@ -7,6 +7,9 @@
 <!-- /.row -->
 <div class="row">
 	<div class="col-lg-12">
+		<div class="panel-heading">
+			<label>Nome <input type="text" ng-model="vm.filtro_projeto" /></label> 
+		</div>
 		<div restrict access="1" class="panel panel-default">
 		<!-- view admin -->
 			<div class="panel-heading">Selecione um Projeto</div>
@@ -22,7 +25,7 @@
 								<th>Status</th>
 							</tr>
 						</thead>
-						<tbody ng-repeat="registro in vm.lista_projetos">
+						<tbody ng-repeat="registro in vm.lista_projetos | filter:vm.filtro_projeto">
 							<tr ng-click="vm.edit_registro_adm($index)">
 								<td>{{registro.nome}}</td>
 								<td>{{registro.descricao}}</td>

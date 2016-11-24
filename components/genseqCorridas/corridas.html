@@ -25,7 +25,7 @@
 								<th>Detalhes</th>
 							</tr>
 						</thead>
-						<tbody ng-repeat="registro in vm.lista_corridas">
+						<tbody ng-repeat="registro in vm.lista_corridas  | filter:vm.filtro_corrida">
 							<tr ng-click="vm.edit_registro($index)">
 								<td>{{registro.id}}</td>
 								<td>{{registro.sistema.descricao}}</td>

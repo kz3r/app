@@ -399,7 +399,7 @@
 								<i class="fa fa-times" ></i>
 							</button>
 						{{registro.usuario.nome}}
-						<select class="selectpicker"  ng-model="registro.papel" ng-options="papel.descricao for papel in vm.lista_papeis">
+						<select class="selectpicker"  ng-model="registro.papel.id" ng-options="papel.id as papel.descricao for papel in vm.lista_papeis">
 								   </select>
 						</li>
 					</ul>
