@@ -40,11 +40,12 @@
 			//Se o usuário foi registrado com sucesso, faz login
 			//VERIFICAR UTILIZAÇÃO DESSA FUNÇÃO NO NOSSO CONTEXTO
 			function registroSuccess(data, status, headers, config) {
-				Autenticacao.login(email, password);
+				//Autenticacao.login(email, password);
+				console.log("Loggar se usuário e fazer nada se ADM?");
 			}
 
 			function registroError(data, status, headers, config) {
-				console.error('Erro no registro! *sad face* ')
+				console.error('Erro no registro! *sad face* ');
 			}
 		}
 	}

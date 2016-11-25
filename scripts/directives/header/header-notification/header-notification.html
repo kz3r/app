@@ -194,13 +194,13 @@
             <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
         </a>
         <ul class="dropdown-menu dropdown-user">
-            <li><a href="#" ng-click="vm.callLogout()" ><i class="fa fa-user fa-fw"></i> User Profile</a>
+            <li restrict access="1"><a href="#" ><i class="fa fa-user fa-fw"></i> [ADM] User Profile</a>
             </li>
-            <li ng-click="vm.callLogout()"><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+            <li restrict access="2"><a href="#"><i class="fa fa-gear fa-fw"></i> [USR] Settings</a>
             </li>
-            <li><a href="http://www.strapui.com/"><i class="fa fa-eye fa-fw"></i> Premium Angular Themes</a></li>
+            <li restrict access="1 2"><a href="http://www.strapui.com/"><i class="fa fa-eye fa-fw"></i> [ALL] Premium Angular Themes</a></li>
             <li class="divider"></li>
-            <li ng-click="vm.callLogout()"><a ui-sref="login"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+            <li ><a ui-sref="login"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
             </li>
         </ul>
         <!-- /.dropdown-user -->

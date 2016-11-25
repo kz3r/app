@@ -28,8 +28,9 @@ angular
         url:'/dashboard',
         templateUrl: 'views/dashboard/main.html',
         resolve: {
-            loadMyDirectives:function($ocLazyLoad){
-                return $ocLazyLoad.load({
+            loadMyDirectives:function($ocLazyLoad, $q){
+
+                var promiseSbAdminApp = $ocLazyLoad.load({
                     name:'sbAdminApp',
                     files:[
 
@@ -37,19 +38,21 @@ angular
                     'scripts/directives/header/header-notification/header-notification.js',
                     'scripts/directives/sidebar/sidebar.js',
                     'scripts/directives/sidebar/sidebar-search/sidebar-search.js',
-						  'shared/genseqAutenticacao/autenticacaoService.js',
+			              'shared/genseqAutenticacao/autenticacaoService.js',
                     'components/genseqLogin/loginService.js',
                     'shared/genseqNavegacao/navController.js'
                     ]
-                }),
-                $ocLazyLoad.load(
-                {
-                   name:'toggle-switch',
-                   files:["bower_components/angular-toggle-switch/angular-toggle-switch.min.js",
-                          "bower_components/angular-toggle-switch/angular-toggle-switch.css"
-                      ]
-                })
+                });
 
+                var promiseToggleSwitch = $ocLazyLoad.load(                {
+                    name:'toggle-switch',
+                    files:["bower_components/angular-toggle-switch/angular-toggle-switch.min.js",
+                          "bower_components/angular-toggle-switch/angular-toggle-switch.css"
+                    ]
+                });
+
+                var promisesArray = [promiseSbAdminApp, promiseToggleSwitch];
+                return $q.all(promisesArray);
             }
         }
     })
@@ -58,8 +61,8 @@ angular
         controller: 'MainCtrl',
         templateUrl:'views/dashboard/home.html',
         resolve: {
-          loadMyFiles:function($ocLazyLoad) {
-            return $ocLazyLoad.load({
+          loadMyFiles:function($ocLazyLoad, $q) {
+            var promiseSbAdminApp = $ocLazyLoad.load({
               name:'sbAdminApp',
               files:[
               'scripts/controllers/main.js',
@@ -70,17 +73,20 @@ angular
               'scripts/directives/chat/chat.js',
               'scripts/directives/dashboard/stats/stats.js'
               ]
-            }),
-            $ocLazyLoad.load(
+            });
+            var promiseNgCookies = $ocLazyLoad.load(
             {
               name:'ngCookies',
               files:['bower_components/angular-cookies/angular-cookies.js']
-            }),
-            $ocLazyLoad.load(
+            });
+            var promiseNgStorage = $ocLazyLoad.load(
             {
               name:'ngStorage',
               files:['bower_components/ngstorage/ngStorage.js']
-            })
+            });
+
+            var promisesArray = [promiseSbAdminApp, promiseNgCookies, promiseNgStorage];
+            return $q.all(promisesArray);
           }
         }
       })
@@ -98,35 +104,40 @@ angular
         controller:'LoginController',
         controllerAs:'vm',
         resolve: {
-            loadMyFile:function($ocLazyLoad) {
-                return $ocLazyLoad.load({
+            loadMyFile:function($ocLazyLoad, $q) {
+                var promiseSbAdminApp = $ocLazyLoad.load({
                     name:'sbAdminApp',
                     files:[
                         'components/genseqLogin/loginService.js',
                         'shared/genseqAutenticacao/autenticacaoService.js',
                         'components/genseqLogin/loginController.js'
                     ]
-                }),
-                $ocLazyLoad.load(
+                });
+                var promiseNgCookies = $ocLazyLoad.load(
                 {
                   name:'ngCookies',
                   files:['bower_components/angular-cookies/angular-cookies.js']
-                }),
-                $ocLazyLoad.load(
+                });
+                var promiseNgStorage = $ocLazyLoad.load(
                 {
                   name:'ngStorage',
                   files:['bower_components/ngstorage/ngStorage.js']
-                })
+                });
+
+                var promisesArray = [promiseSbAdminApp, promiseNgCookies, promiseNgStorage];
+                return $q.all(promisesArray);
             }
         }
     })
+
+    /* COMENTADO PORQUE NÃO ESTAMOS USANDO CHARTS
       .state('dashboard.chart',{
         templateUrl:'views/chart.html',
         url:'/chart',
         controller:'ChartCtrl',
         resolve: {
           loadMyFile:function($ocLazyLoad) {
-            return $ocLazyLoad.load({
+            var  $ocLazyLoad.load({
               name:'chart.js',
               files:[
                 'bower_components/angular-chart.js/dist/angular-chart.min.js',
@@ -140,6 +151,7 @@ angular
           }
         }
     })
+    */
       .state('dashboard.table',{
         templateUrl:'views/table.html',
         url:'/table'
@@ -175,16 +187,19 @@ angular
          templateUrl:'components/genseqServicos/servicos.html',
          url:'/servicos',
          controller:'ServicosController',
-		 controllerAs:'vm',
+	       controllerAs:'vm',
          resolve: {
-             loadMyFile:function($ocLazyLoad) {
-                 return $ocLazyLoad.load({
+             loadMyFile:function($ocLazyLoad, $q) {
+                 var promiseSbAdminApp = $ocLazyLoad.load({
                      name:'sbAdminApp',
                      files:[
                          'components/genseqServicos/servicosService.js',
                          'components/genseqServicos/servicosController.js',
                      ]
-                 })
+                 });
+
+                 var promisesArray = [promiseSbAdminApp];
+                 return $q.all(promisesArray);
              }
          }
      })
@@ -196,14 +211,17 @@ angular
           controller:'SistemasController',
 		  controllerAs:'vm',
           resolve: {
-              loadMyFile:function($ocLazyLoad) {
-                  return $ocLazyLoad.load({
+              loadMyFile:function($ocLazyLoad, $q) {
+                  var promiseSbAdminApp = $ocLazyLoad.load({
                       name:'sbAdminApp',
                       files:[
                           'components/genseqSistemas/sistemasService.js',
                           'components/genseqSistemas/sistemasController.js',
                       ]
-                  })
+                  });
+
+                  var promisesArray = [promiseSbAdminApp];
+                  return $q.all(promisesArray);
               }
           }
       })
@@ -215,14 +233,17 @@ angular
            controller:'KitDeplecaoController',
 		   controllerAs:'vm',
            resolve: {
-               loadMyFile:function($ocLazyLoad) {
-                   return $ocLazyLoad.load({
+               loadMyFile:function($ocLazyLoad, $q) {
+                   var promiseSbAdminApp = $ocLazyLoad.load({
                        name:'sbAdminApp',
                        files:[
                            'components/genseqKitDeplecao/kitDeplecaoService.js',
                            'components/genseqKitDeplecao/kitDeplecaoController.js',
                        ]
-                   })
+                   });
+
+                   var promisesArray = [promiseSbAdminApp];
+                   return $q.all(promisesArray);
                }
            }
        })
@@ -234,14 +255,17 @@ angular
            controller:'InstituicaoController',
 		   controllerAs:'vm',
            resolve: {
-               loadMyFile:function($ocLazyLoad) {
-                   return $ocLazyLoad.load({
+               loadMyFile:function($ocLazyLoad, $q) {
+                   var promiseSbAdminApp = $ocLazyLoad.load({
                        name:'sbAdminApp',
                        files:[
                            'components/genseqInstituicao/instituicaoService.js',
                            'components/genseqInstituicao/instituicaoController.js',
                        ]
-                   })
+                   });
+
+                   var promisesArray = [promiseSbAdminApp];
+                   return $q.all(promisesArray);
                }
            }
        })
@@ -250,23 +274,25 @@ angular
             templateUrl:'components/genseqProjetos/projetos.html',
             url:'/projetos',
             controller:'ProjetosController',
-			controllerAs:'vm',
+	          controllerAs:'vm',
             resolve: {
-                loadMyFile:function($ocLazyLoad) {
-                    return $ocLazyLoad.load({
+                loadMyFile:function($ocLazyLoad, $q) {
+                    var promiseSbAdminApp = $ocLazyLoad.load({
                         name:'sbAdminApp',
                         files:[
-							'components/genseqProjetos/projetosController.js',
+                  					'components/genseqProjetos/projetosController.js',
                             'components/genseqProjetos/projetosService.js',
-							'components/genseqInstituicao/instituicaoService.js',
-							'components/genseqUsuarios/usuariosService.js',
+                  					'components/genseqInstituicao/instituicaoService.js',
+                  					'components/genseqUsuarios/usuariosService.js',
                         ]
-                    }),
-						 $ocLazyLoad.load(
-						 {
-							name:'ngStorage',
-							files:['bower_components/ngstorage/ngStorage.js']
-						 })
+                    });
+        						var promiseNgStorage = $ocLazyLoad.load({
+        							name:'ngStorage',
+        							files:['bower_components/ngstorage/ngStorage.js']
+                    });
+
+                    var promisesArray = [promiseSbAdminApp, promiseNgStorage];
+                    return $q.all(promisesArray);
                 }
             }
         })
@@ -277,22 +303,24 @@ angular
             controller:'AmostrasController',
 			controllerAs:'vm',
             resolve: {
-                loadMyFile:function($ocLazyLoad) {
-                    return $ocLazyLoad.load({
+                loadMyFile:function($ocLazyLoad, $q) {
+                    var promiseSbAdminApp = $ocLazyLoad.load({
                         name:'sbAdminApp',
                         files:[
-							'components/genseqAmostras/amostrasController.js',
-                     'components/genseqAmostras/amostrasService.js',
-							'components/genseqProjetos/projetosService.js',
-							'components/genseqServicos/servicosService.js',
-							'components/genseqSistemas/sistemasService.js',
+              							'components/genseqAmostras/amostrasController.js',
+                            'components/genseqAmostras/amostrasService.js',
+              							'components/genseqProjetos/projetosService.js',
+              							'components/genseqServicos/servicosService.js',
+              							'components/genseqSistemas/sistemasService.js',
                         ]
-                    }),
-						 $ocLazyLoad.load(
-						 {
-							name:'ngStorage',
-							files:['bower_components/ngstorage/ngStorage.js']
-						 })
+                    });
+                    var promiseNgStorage = $ocLazyLoad.load({
+      				         name:'ngStorage',
+      		             files:['bower_components/ngstorage/ngStorage.js']
+                    });
+
+                    var promisesArray = [promiseSbAdminApp, promiseNgStorage];
+                    return $q.all(promisesArray);
                 }
             }
         })
@@ -301,25 +329,27 @@ angular
             templateUrl:'components/genseqCorridas/corridas.html',
             url:'/corridas',
             controller:'CorridasController',
-			controllerAs:'vm',
+            controllerAs:'vm',
             resolve: {
-                loadMyFile:function($ocLazyLoad) {
-                    return $ocLazyLoad.load({
+                loadMyFile:function($ocLazyLoad, $q) {
+                    var promiseSbAdminApp = $ocLazyLoad.load({
                         name:'sbAdminApp',
                         files:[
-							'components/genseqCorridas/corridasController.js',
-                     'components/genseqCorridas/corridasService.js',
-							'components/genseqAmostras/amostrasService.js',
-							'components/genseqServicos/servicosService.js',
-							'components/genseqSistemas/sistemasService.js',
-							'components/genseqKitDeplecao/kitDeplecaoService.js',
+            							'components/genseqCorridas/corridasController.js',
+                          'components/genseqCorridas/corridasService.js',
+            							'components/genseqAmostras/amostrasService.js',
+            							'components/genseqServicos/servicosService.js',
+            							'components/genseqSistemas/sistemasService.js',
+            							'components/genseqKitDeplecao/kitDeplecaoService.js',
                         ]
-                    }),
-						 $ocLazyLoad.load(
-						 {
-							name:'ngStorage',
-							files:['bower_components/ngstorage/ngStorage.js']
-						 })
+                    });
+                    var promiseNgStorage = $ocLazyLoad.load({
+      				         name:'ngStorage',
+      		             files:['bower_components/ngstorage/ngStorage.js']
+                    });
+
+                    var promisesArray = [promiseSbAdminApp, promiseNgStorage];
+                    return $q.all(promisesArray);
                 }
             }
         })
@@ -330,14 +360,17 @@ angular
           controller:'UsuariosController',
 		  controllerAs:'vm',
           resolve: {
-              loadMyFile:function($ocLazyLoad) {
-                  return $ocLazyLoad.load({
+              loadMyFile:function($ocLazyLoad, $q) {
+                  var promiseSbAdminApp = $ocLazyLoad.load({
                       name:'sbAdminApp',
                       files:[
                           'components/genseqUsuarios/usuariosService.js',
                           'components/genseqUsuarios/usuariosController.js',
                       ]
-                  })
+                  });
+
+                  var promisesArray = [promiseSbAdminApp];
+                  return $q.all(promisesArray);
               }
           }
       })
@@ -349,19 +382,21 @@ angular
            controller:'UsuariosController',
            controllerAs:'vm',
            resolve: {
-               loadMyFile:function($ocLazyLoad) {
-                   return $ocLazyLoad.load({
+               loadMyFile:function($ocLazyLoad, $q) {
+                   var promiseSbAdminApp = $ocLazyLoad.load({
                        name:'sbAdminApp',
                        files:[
                            'components/genseqUsuarios/usuariosService.js',
                            'components/genseqUsuarios/usuariosController.js',
                        ]
-                   }),
-                   $ocLazyLoad.load(
-                   {
-                     name:'ngStorage',
-                     files:['bower_components/ngstorage/ngStorage.js']
-                   })
+                   });
+                   var promiseNgStorage = $ocLazyLoad.load({
+                      name:'ngStorage',
+                      files:['bower_components/ngstorage/ngStorage.js']
+                   });
+
+                   var promisesArray = [promiseSbAdminApp, promiseNgStorage];
+                   return $q.all(promisesArray);
                }
            }
        })//
