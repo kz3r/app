@@ -40,7 +40,9 @@ angular
                     'scripts/directives/sidebar/sidebar-search/sidebar-search.js',
 			              'shared/genseqAutenticacao/autenticacaoService.js',
                     'components/genseqLogin/loginService.js',
-                    'shared/genseqNavegacao/navController.js'
+                    'scripts/directives/restrict/restrict.js',
+
+                    'bower_components/snackbar/src/js/snackbar.js'
                     ]
                 });
 
@@ -51,7 +53,13 @@ angular
                     ]
                 });
 
-                var promisesArray = [promiseSbAdminApp, promiseToggleSwitch];
+                var promiseNgCookies = $ocLazyLoad.load(
+                {
+                  name:'ngCookies',
+                  files:['bower_components/angular-cookies/angular-cookies.js']
+                });
+
+                var promisesArray = [promiseSbAdminApp, promiseToggleSwitch, promiseNgCookies];
                 return $q.all(promisesArray);
             }
         }
@@ -400,5 +408,5 @@ angular
                }
            }
        })//
-      <!--  End of module declarations -->
+      <!--  End of module declarations 2-->
     }]);

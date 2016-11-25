@@ -29,6 +29,9 @@
 			//var json_user = JSON.parse(user_info);
 
 			//$cookies.authenticatedUser = ('authkey ' + btoa(user_info.email)) ;
+			if ( user_info.nivel_acesso == null) {
+				user_info.nivel_acesso = undefined;
+			}
 			$cookies.authenticatedUser = ('user: ' + user_info);
 			$localStorage.user = user_info;
 

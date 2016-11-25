@@ -15,13 +15,14 @@ angular.module('sbAdminApp')
         compile: function(element, attr, linker) {
           var accessDenied = true;
     			var user = Autenticacao.getLocalUser();
-
-    			var attributes = attr.access.split(" ");
-    			for(var i in attributes){
-    				if(user.nivel_acesso == attributes[i]){
-    					accessDenied = false;
-    				}
-    			}
+					if (user) {
+	    			var attributes = attr.access.split(" ");
+	    			for(var i in attributes){
+	    				if(user.nivel_acesso == attributes[i]){
+	    					accessDenied = false;
+	    				}
+	    			}
+					}
           if(accessDenied){
 		        element.children().remove();
             element.remove();
