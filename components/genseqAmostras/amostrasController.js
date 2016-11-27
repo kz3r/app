@@ -10,6 +10,7 @@ angular.module('sbAdminApp')
 		vm.listar_projetos = listar_projetos;
 		vm.edit_registro = edit_registro;
 		vm.edit_registro_adm = edit_registro_adm;
+		vm.add_amostra = add_amostra;
 		vm.submit = submit;
 		vm.remove = remove;
 		vm.rejeitar_amostra = rejeitar_amostra;
@@ -18,6 +19,7 @@ angular.module('sbAdminApp')
 		vm.lista_amostras=[];
 		vm.lista_sistemas=[];
 		vm.lista_servicos=[];
+		vm.lista_tipos=[{"id":"O","descricao": "Organismo"},{"id":"G","descricao": "Gel"}];
 		vm.usuario=$localStorage.user.id;
 		vm.nivel_acesso=$localStorage.user.nivel_acesso;
 		listar_projetos();
@@ -64,17 +66,29 @@ angular.module('sbAdminApp')
 
 		}
 		function edit_registro(index) {
-			$('#EditProjetoModal').modal('show');
+			listar_projetos();
 			vm.index = index;
 			vm.id = vm.lista_projetos[index].id;
 			vm.lista_amostra_projeto = vm.lista_projetos[index].amostras;
+			$('#EditProjetoModal').modal('show');
 		}
 		
 		function edit_registro_adm(index) {
-			$('#EditProjetoAdmModal').modal('show');
+			listar_projetos();
 			vm.index = index;
 			vm.id = vm.lista_projetos[index].id;
 			vm.lista_amostra_projeto = vm.lista_projetos[index].amostras;
+			$('#EditProjetoAdmModal').modal('show');
+		}
+		function add_amostra(){
+			$('#AddAmostraModal').modal('show');
+			vm.status = 1;
+			vm.sistema= [];
+			vm.servico = [];
+			vm.tipo = [];
+			vm.organismo = [];
+			vm.observacao = [];
+			
 		}
 		function receber_amostra(registro){
 			vm.status = 2;
@@ -116,22 +130,22 @@ angular.module('sbAdminApp')
 			  }
 		}
 		function submit(){
-		vm.status = 1;
-		Amostra.submit(vm.sistema.id,vm.servico.id,vm.tipo, vm.status, vm.organismo, vm.observacao).then(amostraSuccessFn, amostraErrorFn);
+		Amostra.submit(vm.sistema.id,vm.servico.id,vm.tipo.id, vm.status, vm.organismo, vm.observacao).then(amostraSuccessFn, amostraErrorFn);
 
 			function amostraSuccessFn(data, status, headers, config) {
 				vm.resposta = angular.fromJson(data);
 				vm.id_amostra = vm.resposta.data.id;
-				vm.responsavel_envio = 2;
+				vm.responsavel_envio = vm.usuario;
 				Amostra.add_projetoamostra(vm.id,vm.id_amostra, vm.responsavel_envio);
 				vm.sistema = [];
 				vm.servico = [];
 				vm.tipo_organismo = [];
 				vm.organismo= [];
 				vm.observacao= [];
-				listar_projetos();
 				$('#AddAmostraModal').modal('hide');
 				$('#EditProjetoModal').modal('hide');
+				$('#EditProjetoAdmModal').modal('hide');
+				listar_projetos();
 				SnackBar.show({ pos: 'bottom-center', text: 'Amostra adicionada com sucesso!', actionText: 'Ocultar', actionTextColor: '#00FF00'});
 				
 			  }
@@ -149,6 +163,7 @@ angular.module('sbAdminApp')
 				
 				listar_projetos();
 				$('#EditProjetoModal').modal('hide');
+				$('#EditProjetoAdmModal').modal('hide');
 			}
 
 			function amostraErrorFn(data, status, headers, config) {

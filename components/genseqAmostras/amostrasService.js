@@ -10,7 +10,8 @@
 			listar_amostras: listar_amostras,
 			destroy: destroy,
 			update:update,
-			add_projetoamostra: add_projetoamostra
+			add_projetoamostra: add_projetoamostra,
+			get_amostra: get_amostra
 		};
 
 		return Amostra;
@@ -26,15 +27,20 @@
 			});
 		}
 		
-		function update(id, sistema, servico, tipo_organismo, status, organismo){
+		function update(id, sistema, servico, tipo_organismo, status, organismo, observacao){
 			return $http.put('http://127.0.0.1:8000/genseq_api/amostra/' + id + '/',{
 				sistema: sistema,
 				servico: servico,
 				tipo: tipo_organismo,
 				status: status,
-				organismo: organismo
+				organismo: organismo,
+				observacao: observacao
 			});
 		}
+		function get_amostra(id){
+			return $http.get('http://127.0.0.1:8000/genseq_api/amostra?amostra='+ id);
+		}
+
 		function listar_amostras(){
 			return $http.get('http://127.0.0.1:8000/genseq_api/amostra/');
 		}

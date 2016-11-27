@@ -9,7 +9,7 @@
 	<div class="col-lg-12">
 		<div restrict access="1" class="panel panel-default">
 			<div class="panel-heading">				
-				<button class="btn btn-success btn-sm" type="button" data-toggle="modal" data-target="#AddCorridaModal">
+				<button class="btn btn-success btn-sm" type="button" ng-click="vm.addcorrida()">
 					<i class="fa fa-plus"></i> Adicionar Corrida
 				</button>
 			</div>
@@ -39,34 +39,6 @@
 			<!-- /.panel-body -->
 		</div>
 		<!-- /.panel-body -->
-		<div restrict access="2" class="panel panel-default">
-
-			<!-- /.panel-heading -->
-			<div class="panel-body">
-				<div class="table-responsive">
-					<table class="table table-hover">
-						<thead>
-							<tr>
-								<th>ID</th>
-								<th>Sistema</th>
-								<th>Servico</th>
-								<th>Detalhes</th>
-							</tr>
-						</thead>
-						<tbody ng-repeat="registro in vm.lista_corridas">
-							<tr ng-click="vm.view_registro($index)">
-								<td>{{registro.id}}</td>
-								<td>{{registro.sistema.descricao}}</td>
-								<td>{{registro.servico.descricao}}</td>
-								<td>{{registro.detalhes}}</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-			<!-- /.panel-body -->
-		</div>
-		<!-- /.panel-body -->
 	</div>
 	<!-- /.panel -->
 </div>
@@ -82,59 +54,71 @@
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<form role="form" ng-submit="projeto__form.$valid && vm.submit()" name="projeto__form" novalidate>
-					
-					<div class="form-group">
-						<label>Sistema</label>
-						<select class="selectpicker"  ng-model="vm.sistema" ng-options="sistema.descricao for sistema in vm.lista_sistemas" required>
-							</select>
-					</div>
-					<div class="form-group">
-						<label>Servico</label>
-						<select class="selectpicker"  ng-model="vm.servico" ng-options="servico.descricao for servico in vm.lista_servicos" required>
-							</select>
-					</div>
-					<div class="form-group"> 
-						<label>Detalhes</label>
-						<input type="text" class="form-control" id="projeto__detalhes" name="projeto__detalhes" placeholder="Detalhes " ng-model="vm.detalhes" />
-					</div>
-					<div class="table-responsive">
-						<table class="table table-hover">
-							<thead>
-								<tr>
-									<th></th>
-									<th>Amostra</th>
-									<th>Kit Deplecao</th>
-									<th>Resultado</th>
-									<th>Barcode</th>
-									<th>Ciclos PCR</th>
-								</tr>
-							</thead>
-							<tbody ng-repeat="registro in vm.lista_amostracorrida_view">
-								<tr>
-									<td>
-										<button class="btn btn-danger btn-xs" type="submit" ng-click="vm.remove($index)">
-											<i class="fa fa-times" ></i>
-										</button>
-									</td>
-									<td>{{registro.amostra.organismo}}</td>
-									<td>{{registro.kit_deplecao.descricao}}</td>
-									<td>{{registro.resultado}}</td>
-									<td>{{registro.barcode}}</td>
-									<td>{{registro.ciclos_pcr}}</td>
-								</tr>
-							</tbody>
-							<button class="btn btn-success btn-lg pull-left btn-sm" type="button" data-toggle="modal" data-target="#AddAmostraModal">
-								<i class="fa fa-plus"></i> Adicionar Amostra
-							</button>
-						</table>
-					
-					</div>		
-					
-					<div class="btn-toolbar">
-						<button type="reset" class="btn btn-sm btn-danger pull-right" ng-click="vm.limpar_corrida()">&nbsp;&nbsp;<i class="fa fa-times"></i> Limpar&nbsp;&nbsp;&nbsp;</button> 
-						<button type="submit" class="btn btn-sm btn-success pull-right" onclick="projeto__form.$valid"><i class="fa fa-check"></i> Cadastrar</button>
-					</div>
-				</form>
+							<div class="form-group">
+								<label>Status</label>
+								<select class="selectpicker"  ng-model="vm.status" required>
+								  <option value="">Selecione uma opção</option> <!-- not selected / blank option -->
+								  <option value="4" selected="selected">Em Analise</option >
+								  <option value="5">Analise Completa</option>
+								  <option value="6">Erro na Analise</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label>Sistema</label>
+								<select class="selectpicker"  ng-model="vm.sistema" ng-options="sistema.descricao for sistema in vm.lista_sistemas" required>
+									<option value="">Selecione uma opção</option> <!-- not selected / blank option -->
+								</select>
+							</div>
+							<div class="form-group">
+								<label>Servico</label>
+								<select class="selectpicker"  ng-model="vm.servico" ng-options="servico.descricao for servico in vm.lista_servicos" required>
+									<option value="">Selecione uma opção</option> <!-- not selected / blank option -->
+								</select>
+							</div>
+							<div class="form-group"> 
+								<label>Detalhes</label>
+								<input type="text" class="form-control" id="projeto__detalhes" name="projeto__detalhes" placeholder="Detalhes " ng-model="vm.detalhes" />
+							</div>
+							<div class="table-responsive">
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th></th>
+											<th>Amostra</th>
+											<th>Kit Deplecao</th>
+											<th>Resultado</th>
+											<th>Barcode</th>
+											<th>Ciclos PCR</th>
+											<th>Arquivo Gerado</th>
+										</tr>
+									</thead>
+									<tbody ng-repeat="registro in vm.lista_amostracorrida_view">
+										<tr>
+											<td>
+												<button class="btn btn-danger btn-xs" type="submit" ng-click="vm.remove($index)">
+													<i class="fa fa-times" ></i>
+												</button>
+											</td>
+											<td>{{registro.amostra.organismo}}</td>
+											<td>{{registro.kit_deplecao.descricao}}</td>
+											<td>{{registro.resultado}}</td>
+											<td>{{registro.barcode}}</td>
+											<td>{{registro.ciclos_pcr}}</td>
+											<td>{{registro.arquivo_gerado}}</td>
+										</tr>
+									</tbody>
+									<button class="btn btn-success btn-lg pull-left btn-sm" type="button" data-toggle="modal" data-target="#AddAmostraModal">
+										<i class="fa fa-plus"></i> Adicionar Amostra
+									</button>
+								</table>
+							
+							</div>		
+							
+							<div class="btn-toolbar">
+								<button type="reset" class="btn btn-sm btn-danger pull-right" ng-click="vm.limpar_corrida()">&nbsp;&nbsp;<i class="fa fa-times"></i> Limpar&nbsp;&nbsp;&nbsp;</button> 
+								<button type="submit" class="btn btn-sm btn-success pull-right" onclick="projeto__form.$valid"><i class="fa fa-check"></i> Cadastrar</button>
+							</div>
+						</form>
 					</div>
 					
 				</div>
@@ -157,13 +141,22 @@
 					<div class="panel-body">
 					<form role="form" ng-submit="projeto__form.$valid && vm.submit_edit()" name="projeto__form" novalidate>
 						<div class="form-group">
+							<label>Status</label>
+							<select class="selectpicker"  ng-model="vm.status" required>
+							  <option value="">Selecione uma opção</option> <!-- not selected / blank option -->
+							  <option value="4" selected="selected">Em Analise</option >
+							  <option value="5">Analise Completa</option>
+							  <option value="6">Erro na Analise</option>
+							</select>
+						</div>
+						<div class="form-group">
 							<label>Sistema</label>
-							<select class="selectpicker"  ng-model="vm.sistema" ng-options="sistema.descricao for sistema in vm.lista_sistemas" required>
+							<select class="selectpicker"  ng-model="vm.sistema.id" ng-options="sistema.id as sistema.descricao for sistema in vm.lista_sistemas" required>
 							</select>
 						</div>
 						<div class="form-group">
 							<label>Servico</label>
-							<select class="selectpicker"  ng-model="vm.servico" ng-options="servico.descricao for servico in vm.lista_servicos" required>
+							<select class="selectpicker"  ng-model="vm.servico.id" ng-options="servico.id as servico.descricao for servico in vm.lista_servicos" required>
 							</select>
 						</div>
 						<div class="form-group"> 
@@ -180,6 +173,7 @@
 										<th>Resultado</th>
 										<th>Barcode</th>
 										<th>Ciclos PCR</th>
+										<th>Arquivo Gerado</th>
 									</tr>
 								</thead>
 								<tbody ng-repeat="registro in vm.lista_amostracorrida_view">
@@ -194,9 +188,10 @@
 										<td>{{registro.resultado}}</td>
 										<td>{{registro.barcode}}</td>
 										<td>{{registro.ciclos_pcr}}</td>
+										<td>{{registro.arquivo_gerado}}</td>
 									</tr>
 								</tbody>
-								<button class="btn btn-success btn-lg pull-left btn-sm" type="button" data-toggle="modal" data-target="#EditAddAmostraModal">
+								<button class="btn btn-success btn-lg pull-left btn-sm" type="button" ng-click="vm.editaddamostra()">
 									<i class="fa fa-plus"></i> Adicionar Amostra
 								</button>
 							</table>
@@ -217,66 +212,6 @@
 	<!-- /.modal-dialog -->
 </div>
 
-<div class="modal fade" id="ViewCorridaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Visualizar Corrida</h4>
-			</div>
-			<div class="modal-body">
-				<div class="panel panel-default">
-					<div class="panel-body">
-					<form role="form" name="projeto__form" novalidate>
-						<div class="form-group">
-							<label>Sistema</label>
-							<input type="text" class="form-control" id="projeto__detalhes" name="projeto__detalhes" placeholder="Sistema " ng-model="vm.sistema" disabled />
-						</div>
-						<div class="form-group">
-							<label>Servico</label>
-							<input type="text" class="form-control" id="projeto__detalhes" name="projeto__detalhes" placeholder="Sistema " ng-model="vm.servico" disabled />
-						</div>
-						<div class="form-group"> 
-							<label>Detalhes</label>
-							<input type="text" class="form-control" id="projeto__detalhes" name="projeto__detalhes" placeholder="Detalhes " ng-model="vm.detalhes" disabled />
-						</div>
-						<div class="table-responsive">
-							<table class="table table-hover">
-								<thead>
-									<tr>
-										<th></th>
-										<th>Amostra</th>
-										<th>Kit Deplecao</th>
-										<th>Resultado</th>
-										<th>Barcode</th>
-										<th>Ciclos PCR</th>
-									</tr>
-								</thead>
-								<tbody ng-repeat="registro in vm.lista_amostracorrida_view">
-									<tr ng-click="vm.view_amostras($index)">
-										<td>{{registro.amostra.organismo}}</td>
-										<td>{{registro.kit_deplecao.descricao}}</td>
-										<td>{{registro.resultado}}</td>
-										<td>{{registro.barcode}}</td>
-										<td>{{registro.ciclos_pcr}}</td>
-									</tr>
-								</tbody>
-							</table>
-					
-						</div>		
-					
-						<div class="btn-toolbar">
-						</div>
-					</form>
-					</div>
-					
-				</div>
-			</div>
-		</div>
-		<!-- /.modal-content -->
-	</div>
-	<!-- /.modal-dialog -->
-</div>
 
 <div class="modal fade" id="AddAmostraModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
@@ -304,7 +239,7 @@
 								<label>Resultado</label>
 								<input type="number" class="form-control" id="amostracorrida__resultado" name="amostracorrida__resultado" placeholder="Resultado " ng-model="vm.resultado" required />
 								<small ng-show="amostracorrida__form.amostracorrida__resultado.$error.required" class="text-danger">
-									Este campo é obrigatório
+									Este campo é obrigatório e só pode conter números
 								</small>
 							</div>
 							<div class="form-group">
@@ -318,7 +253,7 @@
 								<label>Ciclos PCR</label>
 								<input type="number" class="form-control" id="amostracorrida__ciclos_pcr" name="amostracorrida__ciclos_pcr" placeholder="Ciclos PCR " ng-model="vm.ciclos_pcr" required />
 								<small ng-show="amostracorrida__form.amostracorrida__ciclos_pcr.$error.required" class="text-danger">
-									Este campo é obrigatório
+									Este campo é obrigatório e só pode conter números
 								</small>
 							</div>
 							<div class="form-group">
@@ -363,13 +298,14 @@
 							<div class="form-group">
 								<label>Kit_deplecao</label>
 								<select class="selectpicker"  ng-model="vm.kit_deplecao" ng-options="kit_deplecao.descricao for kit_deplecao in vm.lista_kitdeplecao" required>
-								   </select>
+									<option value="">Selecione uma opção</option> <!-- not selected / blank option -->
+							   </select>
 							</div>
 							<div class="form-group">
 								<label>Resultado</label>
 								<input type="number" class="form-control" id="amostracorrida__resultado" name="amostracorrida__resultado" placeholder="Resultado " ng-model="vm.resultado" required />
 								<small ng-show="amostracorrida__form.amostracorrida__resultado.$error.required" class="text-danger">
-									Este campo é obrigatório
+									Este campo é obrigatório e só pode conter números
 								</small>
 							</div>
 							<div class="form-group">
@@ -383,7 +319,7 @@
 								<label>Ciclos PCR</label>
 								<input type="number" class="form-control" id="amostracorrida__ciclos_pcr" name="amostracorrida__ciclos_pcr" placeholder="Ciclos PCR " ng-model="vm.ciclos_pcr" required />
 								<small ng-show="amostracorrida__form.amostracorrida__ciclos_pcr.$error.required" class="text-danger">
-									Este campo é obrigatório
+									Este campo é obrigatório e só pode conter números
 								</small>
 							</div>
 							<div class="form-group">
@@ -435,19 +371,20 @@
 								<th>Observação</th>
 								<th>Serviço</th>
 								<th>Sistema</th>
-								<th></th>
+								<th>Status</th>
 							</tr>
 						</thead>
 						<tbody ng-repeat="registro in vm.lista_amostras | filter:vm.filtro_amostra">
 							<tr>
 
 								<td>{{registro.organismo}}</td>
-								<td>{{registro.amostra.observacao}}</td>
+								<td>{{registro.observacao}}</td>
 								<td>{{registro.servico.descricao}}</td>
 								<td>{{registro.sistema.descricao}}</td>
+								<td>{{registro.status.descricao}}</td>
 
 								<td>
-								<button class="btn btn-success btn pull-right btn-sm btn-escolher" data-dismiss="modal" type="button" ng-click="vm.pick_amostra(registro)">
+								<button ng-if="registro.status.descricao != 'Rejeitada' " class="btn btn-success btn pull-right btn-sm btn-escolher" data-dismiss="modal" type="button" ng-click="vm.pick_amostra(registro)">
 									<i class="fa fa-check" ></i> Escolher
 								</button>
 								</td>

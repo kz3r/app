@@ -10,12 +10,13 @@ angular.module('sbAdminApp')
 		vm.listar_amostras = listar_amostras;
 		vm.listar_corridas = listar_corridas;
 		vm.edit_registro = edit_registro;
-		vm.view_registro = view_registro;
 		vm.pick_amostra = pick_amostra;
 		vm.limpar_corrida = limpar_corrida;
 		vm.salvar_amostracorrida = salvar_amostracorrida;
 		vm.salvar_editamostracorrida = salvar_editamostracorrida;
 		vm.add_amostracorrida = add_amostracorrida;
+		vm.editaddamostra = editaddamostra;
+		vm.addcorrida = addcorrida;
 		vm.submit = submit;
 		vm.submit_edit = submit_edit;
 		vm.remove = remove;
@@ -68,9 +69,7 @@ angular.module('sbAdminApp')
 		}
 		function listar_corridas() {
 			
-			if (vm.usuario != null && vm.nivel_acesso!= 1 ){
-				Corrida.listar_corridas_usuario(vm.usuario).then(projetoSuccessFn, projetoErrorFn);
-			}else if (vm.nivel_acesso == 1){
+			if (vm.nivel_acesso == 1){
 				Corrida.listar_corridas().then(projetoSuccessFn, projetoErrorFn);
 			}
 			  function projetoSuccessFn(data, status, headers, config) {
@@ -167,8 +166,8 @@ angular.module('sbAdminApp')
 			vm.index = index;
 			vm.id_corrida = vm.lista_corridas[index].id;
 			vm.id = vm.lista_corridas[index].id;
-			vm.sistema = vm.lista_corridas[index].sistema.descricao;
-			vm.servico = vm.lista_corridas[index].servico.descricao;
+			vm.sistema = vm.lista_corridas[index].sistema;
+			vm.servico = vm.lista_corridas[index].servico;
 			vm.detalhes = vm.lista_corridas[index].detalhes;
 			vm.lista_amostracorrida_view =vm.lista_corridas[index].amostras;
 			var i;
@@ -187,31 +186,6 @@ angular.module('sbAdminApp')
 			}
 		}
 		
-		function view_registro(index) {
-			$('#ViewCorridaModal').modal('show');
-			limpar_corrida();
-			vm.index = index;
-			vm.id_corrida = vm.lista_corridas[index].id;
-			vm.id = vm.lista_corridas[index].id;
-			vm.sistema = vm.lista_corridas[index].sistema.descricao;
-			vm.servico = vm.lista_corridas[index].servico.descricao;
-			vm.detalhes = vm.lista_corridas[index].detalhes;
-			vm.lista_amostracorrida_view =vm.lista_corridas[index].amostras;
-			var i;
-			for (i in vm.lista_corridas[index].amostras){
-				vm.lista_amostracorrida.unshift({
-					
-					id: vm.lista_corridas[index].amostras[i].id,
-					amostra: vm.lista_corridas[index].amostras[i].amostra.id,
-					kit_deplecao: vm.lista_corridas[index].amostras[i].kit_deplecao.id,
-					resultado:vm.lista_corridas[index].amostras[i].resultado,
-					arquivo_gerado:vm.lista_corridas[index].amostras[i].arquivo_gerado,
-					barcode:vm.lista_corridas[index].amostras[i].barcode,
-					ciclos_pcr:vm.lista_corridas[index].amostras[i].ciclos_pcr,
-					corrida:vm.lista_corridas[index].id
-				});
-			}
-		}
 		function submit(){
 
 		Corrida.submit(vm.sistema.id,vm.servico.id,vm.detalhes).then(amostraSuccessFn, amostraErrorFn);
@@ -238,6 +212,27 @@ angular.module('sbAdminApp')
 		Corrida.update(vm.id, vm.sistema.id,vm.servico.id,vm.detalhes).then(amostraSuccessFn, amostraErrorFn);
 
 			function amostraSuccessFn(data, status, headers, config) {
+				var i;
+				for (i in vm.lista_amostracorrida){
+					vm.id_amostra = vm.lista_amostracorrida_view[i].amostra.id;
+					vm.sistema_amostra = vm.lista_amostracorrida_view[i].amostra.sistema.id;
+					vm.servico_amostra = vm.lista_amostracorrida_view[i].amostra.servico.id;
+					vm.tipo_amostra = vm.lista_amostracorrida_view[i].amostra.tipo;
+					vm.organismo_amostra = vm.lista_amostracorrida_view[i].amostra.organismo;
+					vm.observacao_amostra = vm.lista_amostracorrida_view[i].amostra.observacao;
+					
+					Amostra.update(vm.id_amostra, vm.sistema_amostra,vm.servico_amostra,vm.tipo_amostra, vm.status, vm.organismo_amostra, vm.observacao_amostra);
+				}
+				limpar_corrida();
+				vm.id_amostracorrida=[];
+				vm.amostra=[];
+				vm.id_amostra=[];
+				vm.sistema_amostra=[];
+				vm.servico_amostra=[];
+				vm.tipo_amostra=[];
+				vm.organismo_amostra=[];
+				vm.observacao_amostra=[];
+				listar_corridas();
 				vm.sistema = [];
 				vm.servico = [];
 				vm.detalhes = [];
@@ -252,16 +247,34 @@ angular.module('sbAdminApp')
 				SnackBar.show({ pos: 'bottom-center', text: 'Corrida não pode ser adicionada!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
 			  }
 		}
+		
+		function editaddamostra(){
+			vm.id_amostracorrida=[];
+			vm.amostra=[];
+			vm.kit_deplecao=[];
+			vm.resultado=[];
+			vm.barcode=[]
+			vm.ciclos_pcr=[];
+			vm.arquivo_gerado= [];
+			$('#EditAddAmostraModal').modal('show');
+		}
+		function addcorrida(){
+				vm.sistema = [];
+				vm.servico = [];
+				vm.detalhes = [];
+				limpar_corrida();
+			$('#AddCorridaModal').modal('show');
+		}
+		
+		
 		function salvar_editamostracorrida(){
 			
 
 			Corrida.add_amostracorrida(vm.amostra.id,vm.id_corrida, vm.kit_deplecao.id, vm.resultado, vm.arquivo_gerado, vm.barcode, vm.ciclos_pcr,vm.usuario).then(corridaSuccessFn, corridaErrorFn);
 			
 			function corridaSuccessFn(data, status, headers, config) {
-				
+		
 				limpar_corrida();
-				vm.id_amostracorrida=[];
-				vm.amostra=[];
 				vm.kit_deplecao=[];
 				vm.resultado=[];
 				vm.barcode=[]
@@ -287,9 +300,26 @@ angular.module('sbAdminApp')
 				}else{
 					Corrida.add_amostracorrida(vm.lista_amostracorrida[i].amostra,vm.id_corrida, vm.lista_amostracorrida[i].kit_deplecao, vm.lista_amostracorrida[i].resultado, vm.lista_amostracorrida[i].arquivo_gerado, vm.lista_amostracorrida[i].barcode, vm.lista_amostracorrida[i].ciclos_pcr,vm.lista_amostracorrida[i].usuario).then(corridaSuccessFn, corridaErrorFn);
 				}
+				vm.id_amostra = vm.lista_amostracorrida_view[i].amostra.id;
+				vm.sistema_amostra = vm.lista_amostracorrida_view[i].amostra.sistema.id;
+				vm.servico_amostra = vm.lista_amostracorrida_view[i].amostra.servico.id;
+				vm.tipo_amostra = vm.lista_amostracorrida_view[i].amostra.tipo;
+				vm.organismo_amostra = vm.lista_amostracorrida_view[i].amostra.organismo;
+				vm.observacao_amostra = vm.lista_amostracorrida_view[i].amostra.observacao;
+				
+				Amostra.update(vm.id_amostra, vm.sistema_amostra,vm.servico_amostra,vm.tipo_amostra, vm.status, vm.organismo_amostra, vm.observacao_amostra);
+				limpar_corrida();
+				vm.id_amostracorrida=[];
+				vm.amostra=[];
+				vm.id_amostra=[];
+				vm.sistema_amostra=[];
+				vm.servico_amostra=[];
+				vm.tipo_amostra=[];
+				vm.organismo_amostra=[];
+				vm.observacao_amostra=[];
+				listar_corridas();
 			}
 			
-			listar_corridas();
 			function corridaSuccessFn(data, status, headers, config) {
 				vm.lista_amostracorrida=[];
 				vm.lista_amostracorrida_view=[];

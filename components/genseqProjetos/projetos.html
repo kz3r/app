@@ -35,7 +35,7 @@
 					</table>
 				</div>
 
-				<button class="btn btn-success btn-lg pull-right btn-sm" type="button" data-toggle="modal" data-target="#AddProjetoModal">
+				<button class="btn btn-success btn-lg pull-right btn-sm" type="button" ng-click="vm.adicionar_projeto()">
 					<i class="fa fa-plus"></i> Adicionar Projeto
 				</button>
 
@@ -72,7 +72,7 @@
 					</table>
 				</div>
 
-				<button class="btn btn-success btn-lg pull-right btn-sm" type="button" data-toggle="modal" data-target="#AddProjetoModal">
+				<button class="btn btn-success btn-lg pull-right btn-sm" type="button" ng-click="vm.adicionar_projeto()">
 					<i class="fa fa-plus"></i> Adicionar Projeto
 				</button>
 
@@ -316,7 +316,7 @@
 						<ul class="list-group" ng-repeat="registro in vm.lista_instituicoes | filter:vm.filtro_instituicao">
 							<li class="list-group-item">
 								{{registro.nome}}
-								<button class="btn btn-success btn pull-right btn-sm btn-escolher" data-dismiss="modal" type="button" ng-click="vm.pick_instituicao(registro)">
+								<button class="btn btn-success btn pull-right btn-sm btn-escolher-genseq" data-dismiss="modal" type="button" ng-click="vm.pick_instituicao(registro)">
 									<i class="fa fa-check" ></i> Escolher
 								</button>
 							</li>
@@ -369,8 +369,7 @@
 								</li>
 							</ul>
 						</div>
-						<div class="btn-toolbar">
-							<button type="submit" class="btn btn-sm btn-danger pull-right" ng-click="vm.limpar_membros()">&nbsp;&nbsp;<i class="fa fa-times"></i> Limpar&nbsp;&nbsp;&nbsp;</button> 
+						<div class="btn-toolbar"> 
 							<button type="submit" class="btn btn-sm btn-success pull-right" onclick="$('#AddMembrosModal').modal('hide')"><i class="fa fa-check"></i> Finalizar Adição</button>
 						</div>
 					</div>
@@ -399,7 +398,7 @@
 								<i class="fa fa-times" ></i>
 							</button>
 						{{registro.usuario.nome}}
-						<select class="selectpicker"  ng-model="registro.papel.id" ng-options="papel.id as papel.descricao for papel in vm.lista_papeis">
+						<select class="selectpicker"  ng-model="vm.membros_projeto[$index].papel" ng-options="papel as papel.descricao for papel in vm.lista_papeis">
 								   </select>
 						</li>
 					</ul>
