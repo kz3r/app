@@ -62,9 +62,8 @@ angular.module('sbAdminApp')
 			vm.membros_projeto_view.splice(index, 1);
 		}
 		function remove_bd(registro){
-			var index = vm.membros_projeto.indexOf(registro);
-			
-			if (registro.id != NULL){
+		var index = vm.membros_projeto_view.indexOf(registro);
+			if (registro.id != null){
 				Projeto.delete_membro(registro.id);
 			}
 			vm.membros_projeto.splice(index, 1);
@@ -214,18 +213,23 @@ angular.module('sbAdminApp')
 		}
 	
 		function edit_registro(index) {
-			
+			limpar_membros();
 			vm.id = vm.lista_projetos[index].id;
 			vm.nome = vm.lista_projetos[index].nome;
 			vm.descricao = vm.lista_projetos[index].descricao;
 			vm.instituicao = vm.lista_projetos[index].instituicao;
 			vm.dt_autorizacao = vm.lista_projetos[index].autorizado_em;
-			vm.membros_projeto_view =vm.lista_projetos[index].membros;
 			var i;
 			for (i in vm.lista_projetos[index].membros){
 				vm.membros_projeto.unshift({
 					id: vm.lista_projetos[index].membros[i].id,
 					usuario: vm.lista_projetos[index].membros[i].usuario.id,
+					papel:vm.lista_projetos[index].membros[i].papel,
+					projeto:vm.lista_projetos[index].id
+				});
+				vm.membros_projeto_view.unshift({
+					id: vm.lista_projetos[index].membros[i].id,
+					usuario: vm.lista_projetos[index].membros[i].usuario,
 					papel:vm.lista_projetos[index].membros[i].papel,
 					projeto:vm.lista_projetos[index].id
 				});
@@ -243,18 +247,24 @@ angular.module('sbAdminApp')
 			$('#AddProjetoModal').modal('show');
 			}
 		function edit_registro_adm(index) {
+			limpar_membros();
 			$('#EditProjetoAdmModal').modal('show');
 			vm.id = vm.lista_projetos[index].id;
 			vm.nome = vm.lista_projetos[index].nome;
 			vm.descricao = vm.lista_projetos[index].descricao;
 			vm.instituicao = vm.lista_projetos[index].instituicao;
 			vm.dt_autorizacao = vm.lista_projetos[index].autorizado_em;
-			vm.membros_projeto_view =vm.lista_projetos[index].membros;
 			var i;
 			for (i in vm.lista_projetos[index].membros){
 				vm.membros_projeto.unshift({
 					id: vm.lista_projetos[index].membros[i].id,
 					usuario: vm.lista_projetos[index].membros[i].usuario.id,
+					papel:vm.lista_projetos[index].membros[i].papel,
+					projeto:vm.lista_projetos[index].id
+				});
+				vm.membros_projeto_view.unshift({
+					id: vm.lista_projetos[index].membros[i].id,
+					usuario: vm.lista_projetos[index].membros[i].usuario,
 					papel:vm.lista_projetos[index].membros[i].papel,
 					projeto:vm.lista_projetos[index].id
 				});

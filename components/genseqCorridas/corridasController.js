@@ -161,6 +161,7 @@ angular.module('sbAdminApp')
 			
 		}
 		function edit_registro(index) {
+			listar_corridas();
 			$('#EditCorridaModal').modal('show');
 			limpar_corrida();
 			vm.index = index;
@@ -199,7 +200,7 @@ angular.module('sbAdminApp')
 				vm.detalhes = [];
 				SnackBar.show({ pos: 'bottom-center', text: 'Corrida adicionada com sucesso!', actionText: 'Ocultar', actionTextColor: '#00FF00'});
 				$('#AddCorridaModal').modal('hide');
-				
+				listar_corridas();
 			  }
 
 			  function amostraErrorFn(data, status, headers, config) {
