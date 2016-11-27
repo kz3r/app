@@ -160,10 +160,9 @@ angular.module('sbAdminApp')
 			Amostra.destroy(registro.amostra.id).then(amostraSuccessFn, amostraErrorFn);			
 	
 			function amostraSuccessFn(data, status, headers, config) {
-				
+				var index = vm.lista_amostra_projeto.indexOf(registro);
+				vm.lista_amostra_projeto.splice(index, 1);
 				listar_projetos();
-				$('#EditProjetoModal').modal('hide');
-				$('#EditProjetoAdmModal').modal('hide');
 			}
 
 			function amostraErrorFn(data, status, headers, config) {

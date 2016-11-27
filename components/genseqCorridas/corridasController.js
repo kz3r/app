@@ -170,7 +170,6 @@ angular.module('sbAdminApp')
 			vm.sistema = vm.lista_corridas[index].sistema;
 			vm.servico = vm.lista_corridas[index].servico;
 			vm.detalhes = vm.lista_corridas[index].detalhes;
-			vm.lista_amostracorrida_view =vm.lista_corridas[index].amostras;
 			var i;
 			for (i in vm.lista_corridas[index].amostras){
 				vm.lista_amostracorrida.unshift({
@@ -178,6 +177,17 @@ angular.module('sbAdminApp')
 					id: vm.lista_corridas[index].amostras[i].id,
 					amostra: vm.lista_corridas[index].amostras[i].amostra.id,
 					kit_deplecao: vm.lista_corridas[index].amostras[i].kit_deplecao.id,
+					resultado:vm.lista_corridas[index].amostras[i].resultado,
+					arquivo_gerado:vm.lista_corridas[index].amostras[i].arquivo_gerado,
+					barcode:vm.lista_corridas[index].amostras[i].barcode,
+					ciclos_pcr:vm.lista_corridas[index].amostras[i].ciclos_pcr,
+					corrida:vm.lista_corridas[index].id
+				});
+				vm.lista_amostracorrida_view.unshift({
+					
+					id: vm.lista_corridas[index].amostras[i].id,
+					amostra: vm.lista_corridas[index].amostras[i].amostra,
+					kit_deplecao: vm.lista_corridas[index].amostras[i].kit_deplecao,
 					resultado:vm.lista_corridas[index].amostras[i].resultado,
 					arquivo_gerado:vm.lista_corridas[index].amostras[i].arquivo_gerado,
 					barcode:vm.lista_corridas[index].amostras[i].barcode,
