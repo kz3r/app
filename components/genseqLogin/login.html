@@ -1,3 +1,8 @@
+<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+    <div class="navbar-header">
+        <a class="navbar-brand">UFPR - NFN<span> Sistema de Gerenciamento de Projetos de Sequenciamento</p></a>
+    </div>
+</nav>
 <div class="container">
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
@@ -10,30 +15,13 @@
                     <form role="form" ng-submit="vm.login()">
                         <fieldset>
                             <div class="form-group">
-                                <input class="form-control" type="email" placeholder="seuemail@ufpr.br" id="login__email" ng-model="vm.email" autofocus>
+                                <input class="form-control" type="email" placeholder="Email" id="login__email" ng-model="vm.email" autofocus>
                             </div>
                             <div class="form-group">
                                 <input class="form-control" id="login__password" type="password" value="" placeholder="Senha" ng-model="vm.password" >
                             </div>
-                            <div class="checkbox">
-                                <label>
-                                    <input name="remember" type="checkbox" value="Remember Me">Remember Me
-                                </label>
-                            </div>
-                            <!-- Change this to a button or input when using this as a form
-                                <a ui-sref="dashboard.home" >
-                                </a>
-
-                                <div class="form-group">
-                                <button type="submit" class="btn btn-lg btn-success btn-block">Login</button>
-
-                                <button type="submit" class="btn btn-default">Cadastrar</button>
-                            </div>
-                            -->
-
-
                         </fieldset>
-                        <button type="submit" class="btn btn-lg btn-success btn-block">Login</button>
+                        <button type="submit" class="btn btn-lg btn-success btn-block btn-login-genseq">Login</button>
                     </form>
 
                 </div>

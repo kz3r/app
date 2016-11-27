@@ -1,0 +1,53 @@
+body {
+  font-family: "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+nav.navbar.navbar-default.navbar-static-top {
+  background-color: #344563;
+}
+.navbar-default .navbar-brand {
+  font-weight: bold;
+  color: #FFFFFF;
+}
+.navbar-default :hover .navbar-brand {
+    /*color: #5DB8F1;*/
+    color:#5774a6;
+}
+
+.navbar-default .navbar-brand span {
+  font-weight: normal;
+  font-size: small;
+  color: #E9ECF1;
+  margin-left: 20px;
+}
+
+.navbar-top-links :hover span {
+    color: #333;
+}
+
+.navbar-top-links span {
+    color: #c2c6d1;
+}
+
+.navbar-top-links i {
+    color:#5774a6;
+}
+
+.sidebar ul li a {
+    color: #344563;
+}
+
+.page-header {
+  text-transform: uppercase;
+  color: #9299AC;
+  font-size: 24px;
+}
+
+.btn-login-genseq {
+  background-color: #344563;
+  border-color:#5774a6;
+}
+
+.btn-login-genseq:hover, .btn-login-genseq:focus, .btn-login-genseq:focus:active {
+  background-color: #5774a6;
+  border-color:#5774a6;
+}

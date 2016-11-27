@@ -396,6 +396,7 @@ angular
                        files:[
                            'components/genseqUsuarios/usuariosService.js',
                            'components/genseqUsuarios/usuariosController.js',
+                           'bower_components/jquery-mask/jquery.mask.js',
                        ]
                    });
                    var promiseNgStorage = $ocLazyLoad.load({
@@ -408,5 +409,5 @@ angular
                }
            }
        })//
-      <!--  End of module declarations 2-->
+      <!--  End of module declarations 5-->
     }]);

@@ -14,11 +14,11 @@ angular.module('sbAdminApp')
         link: function() { console.log('linkFunc')},
         compile: function(element, attr, linker) {
           var accessDenied = true;
-    			var user = Autenticacao.getLocalUser();
-					if (user) {
+    			var userAccess = Autenticacao.getLocalUserAccess();
+					if (userAccess) {
 	    			var attributes = attr.access.split(" ");
 	    			for(var i in attributes){
-	    				if(user.nivel_acesso == attributes[i]){
+	    				if(userAccess == attributes[i]){
 	    					accessDenied = false;
 	    				}
 	    			}

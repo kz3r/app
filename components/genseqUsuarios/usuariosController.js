@@ -14,6 +14,24 @@
 
 		activate();
 
+		/* GUIDE MASK EXAMPLES
+		Getting the unmasked typed value
+		$('.date').cleanVal();
+
+		Getting a masked value programmatically
+		$('.date').masked('19840807');
+		// END
+		//Form Telefone
+		var options =  {
+				onKeyPress: function(phone, e, field, options){
+				  var masks = ['(00)0000-00000', '(00)00000-0000'];
+			    var thisMask = (phone.length>13) ? masks[1] : masks[0];
+				  $('.phone-mask').mask(thisMask, options);
+				}
+		};
+		$('.phone-mask').mask('(00)0000-00000', options);
+		*/
+
 		/** Activate é evocado no momento em que o controller é instanciado **/
 		function activate() {
 			//var emailUsuario = $routeParams.username.substr(1); // TODO Check $routeParams.username
@@ -37,6 +55,7 @@
 		}
 
 		function update() {
+
 			Usuario.update(vm.usuario).then(usuarioSuccessFn, usuarioErrorFn);
 
 			function usuarioSuccessFn(data, status, headers, config) {
