@@ -7,7 +7,6 @@
 	var GENSEQ_API_Server = 'http://127.0.0.1:8000/genseq_api/';
 		var Corrida = {
 			submit: submit,
-			listar_amostras: listar_amostras,
 			destroy: destroy,
 			update:update,
 			update_amostracorrida: update_amostracorrida,
@@ -32,9 +31,7 @@
 				detalhes: detalhes
 			});
 		}
-		function listar_amostras(){
-			return $http.get('http://127.0.0.1:8000/genseq_api/amostra/');
-		}
+
 		function listar_corridas(){
 			return $http.get('http://127.0.0.1:8000/genseq_api/corrida/');
 		}
