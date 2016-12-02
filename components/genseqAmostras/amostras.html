@@ -161,6 +161,8 @@
 								<th>Observação</th>
 								<th>Serviço</th>
 								<th>Sistema</th>
+								<th>Código</th>
+								<th>Qualidade</th>
 								<th>Status</th>
 							</tr>
 						</thead>
@@ -175,6 +177,8 @@
 								<td>{{registro.amostra.observacao}}</td>
 								<td>{{registro.amostra.servico.descricao}}</td>
 								<td>{{registro.amostra.sistema.descricao}}</td>
+								<td>{{registro.amostra.cod_origem}}</td>
+								<td>{{registro.amostra.qualidade}}</td>
 								<td>{{registro.amostra.status.descricao}}
 									<button type="button" class="btn btn-sm btn-success pull-right" ng-click="vm.receber_amostra(registro)"><i class="fa fa-check"></i> Recebida</button>
 									<button type="button" class="btn btn-sm btn-danger pull-right" ng-click="vm.rejeitar_amostra(registro)"><i class="fa fa-times"></i> Rejeitada</button>
@@ -214,6 +218,18 @@
 								<input type="text" class="form-control" id="projeto__organismo" name="projeto__organismo" placeholder="Organismo " ng-model="vm.organismo" required />
 								<small ng-show="projeto__form.projeto__organismo.$error.required" class="text-danger">
 									Este campo é obrigatório
+								</small>
+							</div>
+							<div class="form-group"> 
+                                <label>Código</label>
+								<input type="text" class="form-control" id="projeto__cod_origem" name="projeto__cod_origem" placeholder="Código " ng-model="vm.cod_origem"/>
+
+							</div>
+							<div class="form-group">
+								<label>Qualidade</label>
+								<input type="number" class="form-control" id="projeto__qualidade" name="projeto__qualidade" placeholder="Qualidade " ng-model="vm.qualidade"/>
+								<small class="text-danger">
+									Este campo só pode conter números
 								</small>
 							</div>
 							<div class="form-group"> 

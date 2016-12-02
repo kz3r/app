@@ -148,9 +148,9 @@ angular.module('sbAdminApp')
 			Projeto.submit(vm.nome,vm.descricao,vm.instituicao.id).then(projetoSuccessFn, projetoErrorFn);
 
 			function projetoSuccessFn(data, status, headers, config) {
-				vm.descricao = [];
-				vm.nome = [];
-				vm.instituicao = [];
+				vm.descricao = null;
+				vm.nome = null;
+				vm.instituicao = null;
 				$('#AddProjetoModal').modal('hide');
 				SnackBar.show({ pos: 'bottom-center', text: 'Projeto adicionado com sucesso!', actionText: 'Ocultar', actionTextColor: '#00FF00'});
 				vm.resposta = angular.fromJson(data);
@@ -168,10 +168,10 @@ angular.module('sbAdminApp')
 			Projeto.update(vm.id, vm.nome, vm.descricao, vm.instituicao.id).then(projetoSuccessFn, projetoErrorFn);
 			
 			function projetoSuccessFn(data, status, headers, config) {
-				vm.id =[];
-				vm.descricao = [];
-				vm.nome = [];
-				vm.instituicao = [];
+				vm.id =null;
+				vm.descricao = null;
+				vm.nome = null;
+				vm.instituicao = null;
 				limpar_membros();
 				$('#EditProjetoModal').modal('hide');
 				SnackBar.show({ pos: 'bottom-center', text: 'Projeto editado com sucesso!', actionText: 'Ocultar', actionTextColor: '#00FF00'});
@@ -238,11 +238,11 @@ angular.module('sbAdminApp')
 		}
 		
 		function adicionar_projeto(){
-			vm.id = [];
-			vm.nome = [];
-			vm.descricao = [];
-			vm.instituicao = [];
-			vm.dt_autorizacao =[];
+			vm.id = null;
+			vm.nome = null;
+			vm.descricao = null;
+			vm.instituicao = null;
+			vm.dt_autorizacao =null;
 			limpar_membros();
 			$('#AddProjetoModal').modal('show');
 			}

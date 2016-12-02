@@ -77,7 +77,10 @@
 							</div>
 							<div class="form-group"> 
 								<label>Detalhes</label>
-								<input type="text" class="form-control" id="projeto__detalhes" name="projeto__detalhes" placeholder="Detalhes " ng-model="vm.detalhes" />
+								<input type="text" class="form-control" id="projeto__detalhes" name="projeto__detalhes" placeholder="Detalhes " ng-model="vm.detalhes" required />
+								<small ng-show="projeto__form.projeto__detalhes.$error.required" class="text-danger">
+									Este campo é obrigatório
+								</small>
 							</div>
 							<div class="table-responsive">
 								<table class="table table-hover">
@@ -139,7 +142,7 @@
 			<div class="modal-body">
 				<div class="panel panel-default">
 					<div class="panel-body">
-					<form role="form" ng-submit="projeto__form.$valid && vm.submit_edit()" name="projeto__form" novalidate>
+					<form role="form" ng-submit="corrida__form.$valid && vm.submit_edit()" name="corrida__form" novalidate>
 						<div class="form-group">
 							<label>Status</label>
 							<select class="selectpicker"  ng-model="vm.status" required>
@@ -199,7 +202,7 @@
 						</div>		
 					
 						<div class="btn-toolbar">
-							<button type="submit" class="btn btn-sm btn-success pull-right" onclick="projeto__form.$valid"><i class="fa fa-check"></i> Salvar</button>
+							<button type="submit" class="btn btn-sm btn-success pull-right" onclick="corrida__form.$valid"><i class="fa fa-check"></i> Salvar</button>
 						</div>
 					</form>
 					</div>

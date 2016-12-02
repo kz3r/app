@@ -16,25 +16,29 @@
 
 		return Amostra;
 
-		function submit(sistema, servico, tipo_organismo, status, organismo, observacao){
+		function submit(sistema, servico, tipo_organismo, status, organismo, observacao, cod_origem, qualidade){
 			return $http.post('http://127.0.0.1:8000/genseq_api/amostra/',{
 				sistema: sistema,
 				servico: servico,
 				tipo: tipo_organismo,
 				status: status,
 				organismo: organismo,
-				observacao:observacao
+				observacao:observacao,
+				cod_origem:cod_origem,
+				qualidade: qualidade
 			});
 		}
 		
-		function update(id, sistema, servico, tipo_organismo, status, organismo, observacao){
+		function update(id, sistema, servico, tipo_organismo, status, organismo, observacao, cod_origem, qualidade){
 			return $http.put('http://127.0.0.1:8000/genseq_api/amostra/' + id + '/',{
 				sistema: sistema,
 				servico: servico,
 				tipo: tipo_organismo,
 				status: status,
 				organismo: organismo,
-				observacao: observacao
+				observacao: observacao,
+				cod_origem:cod_origem,
+				qualidade: qualidade
 			});
 		}
 		function get_amostra(id){

@@ -83,12 +83,13 @@ angular.module('sbAdminApp')
 		function add_amostra(){
 			$('#AddAmostraModal').modal('show');
 			vm.status = 1;
-			vm.sistema= [];
-			vm.servico = [];
-			vm.tipo = [];
-			vm.organismo = [];
-			vm.observacao = [];
-			
+			vm.sistema= null;
+			vm.servico = null;
+			vm.tipo = null;
+			vm.organismo = null;
+			vm.observacao = null;
+			vm.cod_origem= null;
+			vm.qualidade= null;
 		}
 		function receber_amostra(registro){
 			vm.status = 2;
@@ -98,7 +99,9 @@ angular.module('sbAdminApp')
 			vm.tipo = registro.amostra.tipo;
 			vm.organismo = registro.amostra.organismo;
 			vm.observacao = registro.amostra.observacao;
-			Amostra.update(vm.id, vm.sistema,vm.servico,vm.tipo, vm.status, vm.organismo, vm.observacao).then(amostraSuccessFn, amostraErrorFn);
+			vm.cod_origem= registro.amostra.cod_origem;
+			vm.qualidade= registro.amostra.qualidade;
+			Amostra.update(vm.id, vm.sistema,vm.servico,vm.tipo, vm.status, vm.organismo, vm.observacao, vm.cod_origem, vm.qualidade).then(amostraSuccessFn, amostraErrorFn);
 			
 			function amostraSuccessFn(data, status, headers, config) {
 				listar_projetos();
@@ -118,7 +121,9 @@ angular.module('sbAdminApp')
 			vm.tipo = registro.amostra.tipo;
 			vm.organismo = registro.amostra.organismo;
 			vm.observacao = registro.amostra.observacao;
-			Amostra.update(vm.id, vm.sistema,vm.servico,vm.tipo, vm.status, vm.organismo, vm.observacao).then(amostraSuccessFn, amostraErrorFn);
+			vm.cod_origem= registro.amostra.cod_origem;
+			vm.qualidade= registro.amostra.qualidade;
+			Amostra.update(vm.id, vm.sistema,vm.servico,vm.tipo, vm.status, vm.organismo, vm.observacao, vm.cod_origem, vm.qualidade).then(amostraSuccessFn, amostraErrorFn);
 			
 			function amostraSuccessFn(data, status, headers, config) {
 				listar_projetos();
@@ -130,18 +135,20 @@ angular.module('sbAdminApp')
 			  }
 		}
 		function submit(){
-		Amostra.submit(vm.sistema.id,vm.servico.id,vm.tipo.id, vm.status, vm.organismo, vm.observacao).then(amostraSuccessFn, amostraErrorFn);
+		Amostra.submit(vm.sistema.id,vm.servico.id,vm.tipo.id, vm.status, vm.organismo, vm.observacao, vm.cod_origem, vm.qualidade).then(amostraSuccessFn, amostraErrorFn);
 
 			function amostraSuccessFn(data, status, headers, config) {
 				vm.resposta = angular.fromJson(data);
 				vm.id_amostra = vm.resposta.data.id;
 				vm.responsavel_envio = vm.usuario;
 				Amostra.add_projetoamostra(vm.id,vm.id_amostra, vm.responsavel_envio);
-				vm.sistema = [];
-				vm.servico = [];
-				vm.tipo_organismo = [];
-				vm.organismo= [];
-				vm.observacao= [];
+				vm.sistema = null;
+				vm.servico = null;
+				vm.tipo_organismo = null;
+				vm.organismo= null;
+				vm.observacao= null;
+				vm.cod_origem= null;
+				vm.qualidade= null;
 				$('#AddAmostraModal').modal('hide');
 				$('#EditProjetoModal').modal('hide');
 				$('#EditProjetoAdmModal').modal('hide');
