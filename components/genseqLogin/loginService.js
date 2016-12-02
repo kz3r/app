@@ -35,12 +35,11 @@
 
 		function logout() {
 			return $http.post( GENSEQ_API_Server + 'logout/').then(
-				logoutSuccess, logoutError);
+				logoutSuccess, logoutError);	
 
 			function logoutSuccess(data, status, headers, config) {
 				Autenticacao.unauthenticate();
-
-				//window.location = '/#/dashboard';
+				window.location = '/#/login';
 			}
 
 			function logoutError(data, status, headers, config) {

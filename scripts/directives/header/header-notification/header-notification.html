@@ -1,19 +1,28 @@
 <ul class="nav navbar-top-links navbar-right">
-        <li class="dropdown">
+    <li restrict access="1 2" class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown">
+            <span> {{vm.usuarioAtual}} </span>
             <i class="fa fa-user fa-fw"></i><i class="fa fa-caret-down"></i>
         </a>
-        <ul class="dropdown-menu dropdown-user">
+        <ul  class="dropdown-menu dropdown-user">
             <li restrict access="1 2"><a ui-sref="dashboard.editar_cadastro" ><i class="fa fa-user fa-fw"></i> Meu Perfil</a>
             </li>
-            <li restrict access="1"><a href="#"><i class="fa fa-gear fa-fw"></i> [USR] Settings</a>
+            <!-- <li restrict access="1"><a href="#"><i class="fa fa-gear fa-fw"></i> [USR] Settings</a>
             </li>
-            <li><a href="http://www.strapui.com/"><i class="fa fa-eye fa-fw"></i> [ALL] Premium Angular Themes</a></li>
+            <li><a href="http://www.strapui.com/"><i class="fa fa-eye fa-fw"></i> [ALL] Premium Angular Themes</a></li> -->
             <li class="divider"></li>
-            <li><a ui-sref="login"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+            <!-- <li><a ui-sref="login"><i class="fa fa-sign-out fa-fw"></i> Logout</a> -->
+            <li><a href="#" ng-click="vm.callLogout()"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
             </li>
         </ul>
         <!-- /.dropdown-user -->
     </li>
     <!-- /.dropdown -->
+
+    <li restrict access="0">
+      <a ui-sref="login">
+          <span>Login </span>
+          <i class="fa fa-unlock-alt fa-fw"></i></i>
+      </a>
+    </li>
 </ul>

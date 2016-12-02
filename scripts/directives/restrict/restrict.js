@@ -15,7 +15,7 @@ angular.module('sbAdminApp')
         compile: function(element, attr, linker) {
           var accessDenied = true;
     			var userAccess = Autenticacao.getLocalUserAccess();
-					if (userAccess) {
+					if (userAccess || userAccess == 0) {
 	    			var attributes = attr.access.split(" ");
 	    			for(var i in attributes){
 	    				if(userAccess == attributes[i]){

@@ -19,6 +19,7 @@
 			getAuthenticatedUser: getAuthenticatedUser,
 			getLocalUser: getLocalUser,
 			getLocalUserAccess: getLocalUserAccess,
+			getLocalUserName: getLocalUserName,
 			isAuthenticated: isAuthenticated,
 			unauthenticate: unauthenticate
 		};
@@ -61,6 +62,14 @@
 				return $localStorage.user.nivel_acesso;
 		 	} else {
 		 		return 0;
+			}
+		}
+
+		function getLocalUserName() {
+			if($localStorage.user) {
+				return $localStorage.user.nome;
+		 	} else {
+		 		return undefined;
 			}
 		}
 

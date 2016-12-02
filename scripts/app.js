@@ -26,6 +26,8 @@ angular
     $stateProvider
       .state('dashboard', {
         url:'/dashboard',
+        controller: 'NavController',
+        controllerAs: 'vm',
         templateUrl: 'views/dashboard/main.html',
         resolve: {
             loadMyDirectives:function($ocLazyLoad, $q){
@@ -41,7 +43,7 @@ angular
 			              'shared/genseqAutenticacao/autenticacaoService.js',
                     'components/genseqLogin/loginService.js',
                     'scripts/directives/restrict/restrict.js',
-
+                    'shared/genseqNavegacao/navController.js',
                     'bower_components/snackbar/src/js/snackbar.js'
                     ]
                 });
@@ -376,8 +378,13 @@ angular
                           'components/genseqUsuarios/usuariosController.js',
                       ]
                   });
+                  var promiseNgStorage = $ocLazyLoad.load(
+                  {
+                    name:'ngStorage',
+                    files:['bower_components/ngstorage/ngStorage.js']
+                  });
 
-                  var promisesArray = [promiseSbAdminApp];
+                  var promisesArray = [promiseSbAdminApp, promiseNgStorage];
                   return $q.all(promisesArray);
               }
           }
@@ -409,5 +416,5 @@ angular
                }
            }
        })//
-      <!--  End of module declarations 5-->
+      <!--  End of module declarations 6-->
     }]);
