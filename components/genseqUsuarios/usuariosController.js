@@ -3,14 +3,21 @@
 	angular.module('sbAdminApp')
 		.controller('UsuariosController', UsuariosController);
 
-	UsuariosController.$inject = ['$location', '$scope','$localStorage', 'Usuario'];
+	UsuariosController.$inject = ['$location', '$scope','$localStorage', 'Instituicao', 'Usuario'];
 
-	function UsuariosController($location, $scope, $localStorage, Usuario) {
+	function UsuariosController($location, $scope, $localStorage, Instituicao, Usuario) {
 		var vm = this;
+
+
 
 		vm.usuario = undefined;
 		vm.registro = registro;
 		vm.update = update;
+		vm.lista_usuarios = [];
+		vm.edit_registro_adm = edit_registro_adm;
+		listar_instituicoes();
+		//listar_papeis()
+		listar_usuarios();
 
 		activate();
 
@@ -68,5 +75,59 @@
 
 		function registro() {
 			Usuario.registro(vm.email, vm.password, vm.nome);
+		}
+
+		function pick_instituicao(registro){
+			vm.instituicao = registro;
+		}
+
+		function listar_instituicoes() {
+			Instituicao.listar_instituicoes().then(instituicaoSuccessFn, instituicaoErrorFn);
+
+			  function instituicaoSuccessFn(data, status, headers, config) {
+				vm.lista_instituicoes = data.data;
+			  }
+
+			  function instituicaoErrorFn(data, status, headers, config) {
+				SnackBar.show({ pos: 'bottom-center', text: 'Erro ao carregar Instituições!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
+			  }
+
+		}
+
+		function listar_usuarios() {
+			Usuario.listar_usuarios().then(requestSuccess, requestError);
+
+			  function requestSuccess(data, status, headers, config) {
+				vm.lista_usuarios = data.data;
+			  }
+
+			  function requestError(data, status, headers, config) {
+				SnackBar.show({ pos: 'bottom-center', text: 'Erro ao carregar Usuarios!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
+			  }
+
+		}
+
+		function edit_registro_adm(index) {
+			$('#EditUsuarioAdmModal').modal('show');
+			vm.id = vm.lista_usuarios[index].id;
+			vm.nome = vm.lista_usuarios[index].nome;
+			vm.email = vm.lista_usuarios[index].email;
+			vm.instituicao = vm.lista_usuarios[index].instituicao;
+			vm.dt_autorizacao = vm.lista_usuarios[index].autorizado_em;
+			/*var i;
+			for (i in vm.lista_usuarios[index].membros){
+				vm.membros_projeto.unshift({
+					id: vm.lista_usuarios[index].membros[i].id,
+					usuario: vm.lista_projetos[index].membros[i].usuario.id,
+					papel:vm.lista_projetos[index].membros[i].papel,
+					projeto:vm.lista_projetos[index].id
+				});
+				vm.membros_projeto_view.unshift({
+					id: vm.lista_projetos[index].membros[i].id,
+					usuario: vm.lista_projetos[index].membros[i].usuario,
+					papel:vm.lista_projetos[index].membros[i].papel,
+					projeto:vm.lista_projetos[index].id
+				});
+			}*/
 		}
 	}

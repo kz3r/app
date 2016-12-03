@@ -374,6 +374,7 @@ angular
                   var promiseSbAdminApp = $ocLazyLoad.load({
                       name:'sbAdminApp',
                       files:[
+                          'components/genseqInstituicao/instituicaoService.js',
                           'components/genseqUsuarios/usuariosService.js',
                           'components/genseqUsuarios/usuariosController.js',
                       ]
@@ -401,6 +402,7 @@ angular
                    var promiseSbAdminApp = $ocLazyLoad.load({
                        name:'sbAdminApp',
                        files:[
+                           'components/genseqInstituicao/instituicaoService.js',
                            'components/genseqUsuarios/usuariosService.js',
                            'components/genseqUsuarios/usuariosController.js',
                            'bower_components/jquery-mask/jquery.mask.js',
@@ -416,5 +418,33 @@ angular
                }
            }
        })//
+
+       <!-- Modulo Listar Usuarios -->
+       .state('dashboard.listar_usuarios',{
+            templateUrl:'components/genseqUsuarios/listar_usuarios.html',
+            url:'/listar_usuarios',
+            controller:'UsuariosController',
+            controllerAs:'vm',
+            resolve: {
+                loadMyFile:function($ocLazyLoad, $q) {
+                    var promiseSbAdminApp = $ocLazyLoad.load({
+                        name:'sbAdminApp',
+                        files:[
+                            'components/genseqInstituicao/instituicaoService.js',
+                            'components/genseqUsuarios/usuariosService.js',
+                            'components/genseqUsuarios/usuariosController.js',
+                            'bower_components/jquery-mask/jquery.mask.js',
+                        ]
+                    });
+                    var promiseNgStorage = $ocLazyLoad.load({
+                       name:'ngStorage',
+                       files:['bower_components/ngstorage/ngStorage.js']
+                    });
+
+                    var promisesArray = [promiseSbAdminApp, promiseNgStorage];
+                    return $q.all(promisesArray);
+                }
+            }
+        })//
       <!--  End of module declarations 6-->
     }]);
