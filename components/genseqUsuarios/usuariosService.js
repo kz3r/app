@@ -10,6 +10,7 @@
 
 		var Usuario = {
 			listar_usuarios : listar_usuarios,
+			listar_niveisacesso : listar_niveisacesso,
 			registro: registro,
 			get: get,
 			update: update
@@ -21,6 +22,9 @@
 		function listar_usuarios(){
 			return $http.get('http://127.0.0.1:8000/genseq_api/usuarios/');
 		}
+		function listar_niveisacesso(){
+			return $http.get('http://127.0.0.1:8000/genseq_api/nivelacesso/');
+		}
 
 		function get(emailUsuario) {
 			return $http.get('http://127.0.0.1:8000/genseq_api/usuarios/' + emailUsuario + '/');
@@ -30,22 +34,28 @@
 			return $http.put('http://127.0.0.1:8000/genseq_api/usuarios/', perfilUsuario);
 		}
 
-		function registro(email, password, nome){
+		function registro(email, password, nome, nivel_acesso){
 			return $http.post('http://127.0.0.1:8000/genseq_api/usuarios/',{
 				email: email,
 				password: password,
-				nome: nome
+				nome: nome,
+				nivel_acesso: nivel_acesso, //nivel usuário padrão
 			}).then(registroSuccess, registroError);
 
 			//Se o usuário foi registrado com sucesso, faz login
-			//VERIFICAR UTILIZAÇÃO DESSA FUNÇÃO NO NOSSO CONTEXTO
 			function registroSuccess(data, status, headers, config) {
 				//Autenticacao.login(email, password);
 				console.log("Loggar se usuário e fazer nada se ADM?");
 			}
 
 			function registroError(data, status, headers, config) {
-				console.error('Erro no registro! *sad face* ');
+				var snackMessage = "Ocorreu um problem no cadastro."
+				if(data.status == 400) {
+					snackMessage = "Esse email já foi utilizado ou está indísponível.";
+				} else {
+					snackMessage = "Ocorreu um problema no cadastro. Por favor, contate os administradores do sistema.";
+				}
+				Snackbar.show({ pos: 'bottom-center', text: snackMessage, actionText: 'Ocultar', actionTextColor: '#FF0000'});
 			}
 		}
 	}

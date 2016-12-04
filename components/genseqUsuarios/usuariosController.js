@@ -13,11 +13,16 @@
 		vm.usuario = undefined;
 		vm.registro = registro;
 		vm.update = update;
+		vm.update_adm = update_adm;
 		vm.lista_usuarios = [];
 		vm.edit_registro_adm = edit_registro_adm;
-		listar_instituicoes();
+		vm.add_instituicao = add_instituicao;
+		vm.pick_instituicao = pick_instituicao;
 		//listar_papeis()
+		vm.lista_niveisacesso = [];
+		listar_instituicoes();
 		listar_usuarios();
+		listar_niveisacesso();
 
 		activate();
 
@@ -44,11 +49,8 @@
 			//var emailUsuario = $routeParams.username.substr(1); // TODO Check $routeParams.username
 			if (!!$localStorage.user) {
 				vm.usuario = $localStorage.user;
-
-				console.log("Local Storage Yeah");
 			} else {
 				window.location = '/#/dashboard/home'
-				console.log("Erro ao recuperar informaçoes do usuário. Armazenamento local desabilitado");
 			}
 			// Usuario.get('Papyrus').then(usuarioSuccessFn, usuarioErrorFn);
 			//
@@ -66,15 +68,20 @@
 			Usuario.update(vm.usuario).then(usuarioSuccessFn, usuarioErrorFn);
 
 			function usuarioSuccessFn(data, status, headers, config) {
-				SnackBar.show('Seu perfil foi atualizado');
+				Snackbar.show('Seu perfil foi atualizado');
 			}
 			function usuarioErrorFn(data, status, headers, config) {
-				SnackBar.error(data.error);
+				Snackbar.error(data.error);
 			}
 		}
 
+		function update_adm() {
+
+			console.log("this");
+		}
+
 		function registro() {
-			Usuario.registro(vm.email, vm.password, vm.nome);
+			Usuario.registro(vm.email, vm.password, vm.nome, 2);
 		}
 
 		function pick_instituicao(registro){
@@ -89,9 +96,35 @@
 			  }
 
 			  function instituicaoErrorFn(data, status, headers, config) {
-				SnackBar.show({ pos: 'bottom-center', text: 'Erro ao carregar Instituições!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
+				Snackbar.show({ pos: 'bottom-center', text: 'Erro ao carregar Instituições!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
 			  }
 
+		}
+		function listar_niveisacesso() {
+			Usuario.listar_niveisacesso().then(requestSuccess, requestError);
+
+			  function requestSuccess(data, status, headers, config) {
+				vm.lista_niveisacesso = data.data;
+			  }
+
+			  function requestError(data, status, headers, config) {
+				Snackbar.show({ pos: 'bottom-center', text: 'Erro ao carregar níveis de acesso!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
+			  }
+
+		}
+		function add_instituicao(){
+
+			Instituicao.submit(vm.filtro_instituicao).then(instituicaoSuccessFn, instituicaoprojetoErrorFn);
+
+			function instituicaoSuccessFn(data, status, headers, config) {
+				listar_instituicoes();
+				Snackbar.show({ pos: 'bottom-center', text: 'Instituição adicionada com sucesso!', actionText: 'Ocultar', actionTextColor: '#00FF00'});
+
+				}
+
+				function instituicaoprojetoErrorFn(data, status, headers, config) {
+				Snackbar.show({ pos: 'bottom-center', text: 'Instituição não pode ser adicionada!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
+				}
 		}
 
 		function listar_usuarios() {
@@ -102,7 +135,7 @@
 			  }
 
 			  function requestError(data, status, headers, config) {
-				SnackBar.show({ pos: 'bottom-center', text: 'Erro ao carregar Usuarios!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
+				Snackbar.show({ pos: 'bottom-center', text: 'Erro ao carregar Usuarios!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
 			  }
 
 		}

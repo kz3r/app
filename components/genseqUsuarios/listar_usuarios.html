@@ -59,7 +59,7 @@
 			<div class="modal-body">
 				<div class="panel panel-default">
 					<div class="panel-body">
-						<form role="form" ng-submit="usuario__form.$valid && vm.submit()" name="usuario__form" novalidate>
+						<form role="form" ng-submit="usuario__form.$valid && vm.update_adm()" name="usuario__form" novalidate>
 							<div class="form-group col-lg-6">
                                 <label>Nome</label>
 								<input type="text" class="form-control" id="usuario__nome" name="usuario__nome" placeholder="Nome " ng-model="vm.nome" required />
@@ -88,15 +88,18 @@
 							</div>
 							<div class="form-group col-lg-12">
 								<label>Setor</label>
-								<input type="text" class="form-control" id="usuario__setor" name="usuario__setor" ng-model="vm.setor" required />
+								<input type="text" class="form-control" id="usuario__setor" name="usuario__setor" ng-model="vm.setor" />
 							</div>
 							<div class="form-group col-lg-12">
 								<label>Telefone</label>
-								<input type="text" class="form-control" id="usuario__telefone" name="usuario__telefone" ng-model="vm.telefone" required />
+								<input type="text" class="form-control" id="usuario__telefone" name="usuario__telefone" ng-model="vm.telefone" />
 							</div>
 							<div class="form-group col-lg-12">
 								<label>Nível de Acesso</label>
-								<input type="text" class="form-control" id="usuario__nivel_acesso" name="usuario__nivel_acesso" ng-model="vm.nivel_acesso" required />
+								<select class="selectpicker"  id="usuario__nivelacesso" ng-model="vm.niveis_acesso" ng-options="nivel.descricao for nivel in vm.lista_niveisacesso" required>
+									<option value="">Selecione uma opção</option> <!-- not selected / blank option -->
+							   </select>
+								<!-- <input type="text" class="form-control" id="usuario__nivel_acesso" name="usuario__nivel_acesso" ng-model="vm.nivel_acesso" required /> -->
 								<small ng-show="usuario__form.usuario__instituicao.$error.required" class="text-danger">
 									Este campo é obrigatório
 								</small>

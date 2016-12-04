@@ -36,20 +36,20 @@ angular.module('sbAdminApp')
 		listar_projetos();
 		listar_usuarios();
 		listar_papeis();
-		
-		
+
+
 		function add_instituicao(){
 
 			Instituicao.submit(vm.filtro_instituicao).then(instituicaoSuccessFn, instituicaoprojetoErrorFn);
 
 			function instituicaoSuccessFn(data, status, headers, config) {
 				listar_instituicoes();
-				SnackBar.show({ pos: 'bottom-center', text: 'Instituição adicionada com sucesso!', actionText: 'Ocultar', actionTextColor: '#00FF00'});
+				Snackbar.show({ pos: 'bottom-center', text: 'Instituição adicionada com sucesso!', actionText: 'Ocultar', actionTextColor: '#00FF00'});
 
 			  }
 
 			  function instituicaoprojetoErrorFn(data, status, headers, config) {
-				SnackBar.show({ pos: 'bottom-center', text: 'Instituição não pode ser adicionada!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
+				Snackbar.show({ pos: 'bottom-center', text: 'Instituição não pode ser adicionada!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
 			  }
 		}
 		function limpar_membros(){
@@ -76,13 +76,13 @@ angular.module('sbAdminApp')
 				papel:vm.lista_papeis[0]
 
 			});
-			
+
 			vm.membros_projeto.unshift({
 				usuario: membro.id,
 				papel:vm.lista_papeis[0]
 
 			});
-			
+
 		}
 
 		function pick_instituicao(registro){
@@ -97,7 +97,7 @@ angular.module('sbAdminApp')
 			  }
 
 			  function instituicaoErrorFn(data, status, headers, config) {
-				SnackBar.show({ pos: 'bottom-center', text: 'Erro ao carregar Instituições!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
+				Snackbar.show({ pos: 'bottom-center', text: 'Erro ao carregar Instituições!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
 			  }
 
 		}
@@ -109,9 +109,9 @@ angular.module('sbAdminApp')
 			  }
 
 			  function projetoErrorFn(data, status, headers, config) {
-				SnackBar.show({ pos: 'bottom-center', text: 'Erro ao carregar Papéis!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
+				Snackbar.show({ pos: 'bottom-center', text: 'Erro ao carregar Papéis!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
 			  }
-			
+
 		}
 
 		function listar_projetos() {
@@ -125,7 +125,7 @@ angular.module('sbAdminApp')
 			  }
 
 			  function projetoErrorFn(data, status, headers, config) {
-				SnackBar.show({ pos: 'bottom-center', text: 'Erro ao carregar Projetos!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
+				Snackbar.show({ pos: 'bottom-center', text: 'Erro ao carregar Projetos!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
 			  }
 
 		}
@@ -138,7 +138,7 @@ angular.module('sbAdminApp')
 			  }
 
 			  function projetoErrorFn(data, status, headers, config) {
-				SnackBar.show({ pos: 'bottom-center', text: 'Erro ao carregar Usuarios!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
+				Snackbar.show({ pos: 'bottom-center', text: 'Erro ao carregar Usuarios!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
 			  }
 
 		}
@@ -152,7 +152,7 @@ angular.module('sbAdminApp')
 				vm.nome = null;
 				vm.instituicao = null;
 				$('#AddProjetoModal').modal('hide');
-				SnackBar.show({ pos: 'bottom-center', text: 'Projeto adicionado com sucesso!', actionText: 'Ocultar', actionTextColor: '#00FF00'});
+				Snackbar.show({ pos: 'bottom-center', text: 'Projeto adicionado com sucesso!', actionText: 'Ocultar', actionTextColor: '#00FF00'});
 				vm.resposta = angular.fromJson(data);
 				vm.id = vm.resposta.data.id;
 				salvar_membros();
@@ -161,12 +161,12 @@ angular.module('sbAdminApp')
 			  }
 
 			  function projetoErrorFn(data, status, headers, config) {
-				SnackBar.show({ pos: 'bottom-center', text: 'Projeto não pode ser adicionado!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
+				Snackbar.show({ pos: 'bottom-center', text: 'Projeto não pode ser adicionado!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
 			  }
 		}
 		function update(){
 			Projeto.update(vm.id, vm.nome, vm.descricao, vm.instituicao.id).then(projetoSuccessFn, projetoErrorFn);
-			
+
 			function projetoSuccessFn(data, status, headers, config) {
 				vm.id =null;
 				vm.descricao = null;
@@ -174,18 +174,18 @@ angular.module('sbAdminApp')
 				vm.instituicao = null;
 				limpar_membros();
 				$('#EditProjetoModal').modal('hide');
-				SnackBar.show({ pos: 'bottom-center', text: 'Projeto editado com sucesso!', actionText: 'Ocultar', actionTextColor: '#00FF00'});
+				Snackbar.show({ pos: 'bottom-center', text: 'Projeto editado com sucesso!', actionText: 'Ocultar', actionTextColor: '#00FF00'});
 				listar_projetos();
 			  }
 
 			  function projetoErrorFn(data, status, headers, config) {
-				SnackBar.show({ pos: 'bottom-center', text: 'Projeto não pode ser editado!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
+				Snackbar.show({ pos: 'bottom-center', text: 'Projeto não pode ser editado!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
 			  }
 		}
 		function aprovar_projeto(){
 			vm.autorizado_em = new Date();
 			Projeto.aprovar_projeto(vm.id,vm.usuario, vm.autorizado_em, vm.nome, vm.descricao, vm.instituicao.id).then(projetoSuccessFn, projetoErrorFn);
-			
+
 			function projetoSuccessFn(data, status, headers, config) {
 				listar_projetos();
 				limpar_membros();
@@ -193,14 +193,14 @@ angular.module('sbAdminApp')
 			  }
 
 			  function projetoErrorFn(data, status, headers, config) {
-				SnackBar.show({ pos: 'bottom-center', text: 'Projeto não pode ser aprovado!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
+				Snackbar.show({ pos: 'bottom-center', text: 'Projeto não pode ser aprovado!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
 			  }
 		}
-		
+
 		function desaprovar_projeto(){
 			vm.autorizado_em = null;
 			Projeto.aprovar_projeto(vm.id,vm.usuario, vm.autorizado_em, vm.nome, vm.descricao, vm.instituicao.id).then(projetoSuccessFn, projetoErrorFn);
-			
+
 			function projetoSuccessFn(data, status, headers, config) {
 				listar_projetos();
 				limpar_membros();
@@ -208,10 +208,10 @@ angular.module('sbAdminApp')
 			  }
 
 			  function projetoErrorFn(data, status, headers, config) {
-				SnackBar.show({ pos: 'bottom-center', text: 'Projeto não pode ser desaprovado!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
+				Snackbar.show({ pos: 'bottom-center', text: 'Projeto não pode ser desaprovado!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
 			  }
 		}
-	
+
 		function edit_registro(index) {
 			limpar_membros();
 			vm.id = vm.lista_projetos[index].id;
@@ -236,7 +236,7 @@ angular.module('sbAdminApp')
 			}
 			$('#EditProjetoModal').modal('show');
 		}
-		
+
 		function adicionar_projeto(){
 			vm.id = null;
 			vm.nome = null;
@@ -271,7 +271,7 @@ angular.module('sbAdminApp')
 			}
 		}
 		function edit_membros() {
-			
+
 			var i;
 			for (i in vm.membros_projeto){
 				if (vm.membros_projeto[i].id !=null){
@@ -285,29 +285,29 @@ angular.module('sbAdminApp')
 			$('#EditMembrosModal').modal('hide');
 			$('#EditProjetoAdmModal').modal('hide');
 			$('#EditProjetoModal').modal('hide');
-			
+
 			function projetoSuccessFn(data, status, headers, config) {
-			
+
 			  }
 
 			  function projetoErrorFn(data, status, headers, config) {
-				SnackBar.show({ pos: 'bottom-center', text: 'Membro não pode ser editado!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
+				Snackbar.show({ pos: 'bottom-center', text: 'Membro não pode ser editado!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
 			  }
 		}
 		function salvar_membros() {
-			
+
 			var i;
 			for (i in vm.membros_projeto_view){
 				Projeto.add_membros(vm.membros_projeto_view[i].usuario.id,vm.id, vm.membros_projeto_view[i].papel.id).then(projetoSuccessFn, projetoErrorFn);
 			}
 			$('#AddMembrosModal').modal('hide');
-			
+
 			function projetoSuccessFn(data, status, headers, config) {
-				
+
 			  }
 
 			  function projetoErrorFn(data, status, headers, config) {
-				SnackBar.show({ pos: 'bottom-center', text: 'Membro não pode ser editado!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
+				Snackbar.show({ pos: 'bottom-center', text: 'Membro não pode ser editado!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
 			  }
 		}
 	}

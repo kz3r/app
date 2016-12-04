@@ -22,11 +22,11 @@
 				descricao: vm.descricao
 				});
 				vm.descricao = [];
-				SnackBar.show({ pos: 'bottom-center', text: 'Sistema adicionado com sucesso!', actionText: 'Ocultar', actionTextColor: '#00FF00'});
+				Snackbar.show({ pos: 'bottom-center', text: 'Sistema adicionado com sucesso!', actionText: 'Ocultar', actionTextColor: '#00FF00'});
 			  }
 
 			  function sistemasErrorFn(data, status, headers, config) {
-				SnackBar.show({ pos: 'bottom-center', text: 'Sistema não pode ser adicionado!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
+				Snackbar.show({ pos: 'bottom-center', text: 'Sistema não pode ser adicionado!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
 			  }
 		}
 		function destroy(id) {
@@ -34,11 +34,11 @@
 
 		  function delsistemasSuccessFn(data, status, headers, config) {
 			activate();
-			SnackBar.show({ pos: 'bottom-center', text: 'Sistema excluido com sucesso!', actionText: 'Ocultar', actionTextColor: '#00FF00'});
+			Snackbar.show({ pos: 'bottom-center', text: 'Sistema excluido com sucesso!', actionText: 'Ocultar', actionTextColor: '#00FF00'});
 		  }
 
 		  function delsistemasErrorFn(data, status, headers, config) {
-			SnackBar.show({ pos: 'bottom-center', text: 'Sistema não pode ser excluido!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
+			Snackbar.show({ pos: 'bottom-center', text: 'Sistema não pode ser excluido!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
 		  }
 		}
 		function activate() {
@@ -49,7 +49,7 @@
 			  }
 
 			  function sistemasErrorFn(data, status, headers, config) {
-				SnackBar.show({ pos: 'bottom-center', text: 'Erro ao carregar sistemas!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
+				Snackbar.show({ pos: 'bottom-center', text: 'Erro ao carregar sistemas!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
 			  }
 
 		}

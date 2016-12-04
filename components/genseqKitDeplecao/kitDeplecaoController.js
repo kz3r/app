@@ -22,11 +22,11 @@ angular.module('sbAdminApp')
 				descricao: vm.descricao
 				});
 				vm.descricao = [];
-				SnackBar.show({ pos: 'bottom-center', text: 'Kit de Depleção adicionado com sucesso!', actionText: 'Ocultar', actionTextColor: '#00FF00'});
+				Snackbar.show({ pos: 'bottom-center', text: 'Kit de Depleção adicionado com sucesso!', actionText: 'Ocultar', actionTextColor: '#00FF00'});
 			  }
 
 			  function kitdeplecaoErrorFn(data, status, headers, config) {
-				SnackBar.show({ pos: 'bottom-center', text: 'Kit de Depleção não pode ser adicionado!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
+				Snackbar.show({ pos: 'bottom-center', text: 'Kit de Depleção não pode ser adicionado!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
 			  }
 		}
 		function destroy(id) {
@@ -34,11 +34,11 @@ angular.module('sbAdminApp')
 
 		  function delkitdeplecaoSuccessFn(data, status, headers, config) {
 			activate();
-			SnackBar.show({ pos: 'bottom-center', text: 'Kit de Depleção excluido com sucesso!', actionText: 'Ocultar', actionTextColor: '#00FF00'});
+			Snackbar.show({ pos: 'bottom-center', text: 'Kit de Depleção excluido com sucesso!', actionText: 'Ocultar', actionTextColor: '#00FF00'});
 		  }
 
 		  function delkitdeplecaoErrorFn(data, status, headers, config) {
-			SnackBar.show({ pos: 'bottom-center', text: 'Kit de Depleção não pode ser excluido!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
+			Snackbar.show({ pos: 'bottom-center', text: 'Kit de Depleção não pode ser excluido!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
 		  }
 		}
 		function activate() {
@@ -49,7 +49,7 @@ angular.module('sbAdminApp')
 			  }
 
 			  function kitdeplecaoErrorFn(data, status, headers, config) {
-				SnackBar.show({ pos: 'bottom-center', text: 'Erro ao carregar kits de depleção!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
+				Snackbar.show({ pos: 'bottom-center', text: 'Erro ao carregar kits de depleção!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
 			  }
 
 		}

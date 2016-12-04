@@ -37,7 +37,7 @@ angular.module('sbAdminApp')
 			  }
 
 			  function projetoErrorFn(data, status, headers, config) {
-				SnackBar.show({ pos: 'bottom-center', text: 'Erro ao carregar Projetos!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
+				Snackbar.show({ pos: 'bottom-center', text: 'Erro ao carregar Projetos!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
 			  }
 
 		}
@@ -49,7 +49,7 @@ angular.module('sbAdminApp')
 			  }
 
 			  function sistemaErrorFn(data, status, headers, config) {
-				SnackBar.show({ pos: 'bottom-center', text: 'Erro ao carregar Sistemas!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
+				Snackbar.show({ pos: 'bottom-center', text: 'Erro ao carregar Sistemas!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
 			  }
 
 		}
@@ -61,7 +61,7 @@ angular.module('sbAdminApp')
 			  }
 
 			  function servicoErrorFn(data, status, headers, config) {
-				SnackBar.show({ pos: 'bottom-center', text: 'Erro ao carregar Servicos!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
+				Snackbar.show({ pos: 'bottom-center', text: 'Erro ao carregar Servicos!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
 			  }
 
 		}
@@ -72,7 +72,7 @@ angular.module('sbAdminApp')
 			vm.lista_amostra_projeto = vm.lista_projetos[index].amostras;
 			$('#EditProjetoModal').modal('show');
 		}
-		
+
 		function edit_registro_adm(index) {
 			listar_projetos();
 			vm.index = index;
@@ -102,17 +102,17 @@ angular.module('sbAdminApp')
 			vm.cod_origem= registro.amostra.cod_origem;
 			vm.qualidade= registro.amostra.qualidade;
 			Amostra.update(vm.id, vm.sistema,vm.servico,vm.tipo, vm.status, vm.organismo, vm.observacao, vm.cod_origem, vm.qualidade).then(amostraSuccessFn, amostraErrorFn);
-			
+
 			function amostraSuccessFn(data, status, headers, config) {
 				listar_projetos();
 				$('#EditProjetoAdmModal').modal('hide');
 			  }
 
 			  function amostraErrorFn(data, status, headers, config) {
-				SnackBar.show({ pos: 'bottom-center', text: 'Amostra não pode ser recebida!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
+				Snackbar.show({ pos: 'bottom-center', text: 'Amostra não pode ser recebida!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
 			  }
 		}
-		
+
 		function rejeitar_amostra(registro){
 			vm.status = 3;
 			vm.id = registro.amostra.id;
@@ -124,14 +124,14 @@ angular.module('sbAdminApp')
 			vm.cod_origem= registro.amostra.cod_origem;
 			vm.qualidade= registro.amostra.qualidade;
 			Amostra.update(vm.id, vm.sistema,vm.servico,vm.tipo, vm.status, vm.organismo, vm.observacao, vm.cod_origem, vm.qualidade).then(amostraSuccessFn, amostraErrorFn);
-			
+
 			function amostraSuccessFn(data, status, headers, config) {
 				listar_projetos();
 				$('#EditProjetoAdmModal').modal('hide');
 			  }
 
 			  function amostraErrorFn(data, status, headers, config) {
-				SnackBar.show({ pos: 'bottom-center', text: 'Amostra não pode ser rejeitada!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
+				Snackbar.show({ pos: 'bottom-center', text: 'Amostra não pode ser rejeitada!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
 			  }
 		}
 		function submit(){
@@ -153,19 +153,19 @@ angular.module('sbAdminApp')
 				$('#EditProjetoModal').modal('hide');
 				$('#EditProjetoAdmModal').modal('hide');
 				listar_projetos();
-				SnackBar.show({ pos: 'bottom-center', text: 'Amostra adicionada com sucesso!', actionText: 'Ocultar', actionTextColor: '#00FF00'});
-				
+				Snackbar.show({ pos: 'bottom-center', text: 'Amostra adicionada com sucesso!', actionText: 'Ocultar', actionTextColor: '#00FF00'});
+
 			  }
 
 			  function amostraErrorFn(data, status, headers, config) {
-				SnackBar.show({ pos: 'bottom-center', text: 'Projeto não pode ser adicionado!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
+				Snackbar.show({ pos: 'bottom-center', text: 'Projeto não pode ser adicionado!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
 			  }
 		}
-		
+
 		function remove(registro){
-			
-			Amostra.destroy(registro.amostra.id).then(amostraSuccessFn, amostraErrorFn);			
-	
+
+			Amostra.destroy(registro.amostra.id).then(amostraSuccessFn, amostraErrorFn);
+
 			function amostraSuccessFn(data, status, headers, config) {
 				var index = vm.lista_amostra_projeto.indexOf(registro);
 				vm.lista_amostra_projeto.splice(index, 1);
@@ -173,7 +173,7 @@ angular.module('sbAdminApp')
 			}
 
 			function amostraErrorFn(data, status, headers, config) {
-				SnackBar.show({ pos: 'bottom-center', text: 'Membro não pode ser excluido!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
+				Snackbar.show({ pos: 'bottom-center', text: 'Membro não pode ser excluido!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
 			}
 		}
 	}

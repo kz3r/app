@@ -14,7 +14,7 @@
 		activate();
 
 		function activate() {
-			if ( $localStorage.user != null) { console.log($localStorage.user); }
+			//if ( $localStorage.user != null) { console.log($localStorage.user); }
 			if (Autenticacao.isAuthenticated()){
 				$location.url('/');
 			}
