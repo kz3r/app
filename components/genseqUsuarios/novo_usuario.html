@@ -23,12 +23,21 @@
 									<label for="registro__email">Email</label>
 									<input type="email" class="form-control" id="registro__email" placeholder="meuemail@dominio.com.br" ng-model="vm.email">
 								</div>
+								<div class="form-group">
+								<label>Instituição</label>
+								<input type="text" class="form-control" id="registro__instituicao" name="registro__instituicao" ng-model="vm.instituicao.nome" disabled />
 
+							</div>
+							<div class="form-group">
+								<button class="btn btn-success btn-sm" type="button" data-toggle="modal" data-target="#PickInstituicaoModal">
+									<i class="fa fa-plus"></i> Escolher Instituicao
+								</button>
+							</div>
 								<div class="form-group">
 									<label for="registro__password">Senha</label>
 									<input type="password" class="form-control" id="registro__password" ng-model="vm.password">
 								</div>
-
+							
 								<div class="form-group pull-right">
 									<button type="submit" class="btn btn-default">Cadastrar</button>
 									<button type="reset" class="btn btn-default">Limpar</button>
@@ -45,3 +54,41 @@
 	</div>
 	<!-- /.col-lg-12 -->
 </div>
+
+<div class="modal fade" id="PickInstituicaoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Selecionar Instituição</h4>
+			</div>
+			<div class="modal-body">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<div class="panel-heading">
+						<form role="form" ng-submit="vm.add_instituicao()">
+						<label>Nome <input type="text" ng-model="vm.filtro_instituicao" /></label>
+						<button class="btn btn-default btn-sm pull-right" type="submit">
+							<i class="fa fa-plus"></i> Adicionar
+						</button>
+						</div>
+					</form>
+					</div>
+					<div class="panel-body">
+						<ul class="list-group" ng-repeat="registro in vm.lista_instituicoes | filter:vm.filtro_instituicao">
+							<li class="list-group-item">
+								{{registro.nome}}
+								<button class="btn btn-success btn pull-right btn-sm btn-escolher-genseq" data-dismiss="modal" type="button" ng-click="vm.pick_instituicao(registro)">
+									<i class="fa fa-check" ></i> Escolher
+								</button>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

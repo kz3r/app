@@ -20,6 +20,7 @@
 		vm.pick_instituicao = pick_instituicao;
 		//listar_papeis()
 		vm.lista_niveisacesso = [];
+		vm.lista_instituicoes=[];
 		listar_instituicoes();
 		listar_usuarios();
 		listar_niveisacesso();
@@ -62,6 +63,8 @@
 			// 	SnackBar.error('Usuário não encontrado.')
 			// }
 		}
+		
+		
 
 		function update() {
 
@@ -81,7 +84,8 @@
 		}
 
 		function registro() {
-			Usuario.registro(vm.email, vm.password, vm.nome, 2);
+//			vm.nivel_acesso ={id:2,descricao:'Usuário'}
+			Usuario.registro(vm.email, vm.password, vm.nome, 2,vm.instituicao.id);
 		}
 
 		function pick_instituicao(registro){

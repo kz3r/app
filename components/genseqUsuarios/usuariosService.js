@@ -34,12 +34,13 @@
 			return $http.put('http://127.0.0.1:8000/genseq_api/usuarios/', perfilUsuario);
 		}
 
-		function registro(email, password, nome, nivel_acesso){
+		function registro(email, password, nome, nivel_acesso,instituicao){
 			return $http.post('http://127.0.0.1:8000/genseq_api/usuarios/',{
 				email: email,
 				password: password,
 				nome: nome,
 				nivel_acesso: nivel_acesso, //nivel usuário padrão
+				instituicao:instituicao
 			}).then(registroSuccess, registroError);
 
 			//Se o usuário foi registrado com sucesso, faz login
