@@ -160,7 +160,8 @@ angular.module('sbAdminApp')
 
 
 		}
-		function edit_registro(index) {
+		function edit_registro(registro) {
+			var index = vm.lista_corridas.indexOf(registro);
 			listar_corridas();
 			$('#EditCorridaModal').modal('show');
 			limpar_corrida();

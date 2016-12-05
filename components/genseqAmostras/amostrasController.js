@@ -65,7 +65,8 @@ angular.module('sbAdminApp')
 			  }
 
 		}
-		function edit_registro(index) {
+		function edit_registro(registro) {
+			var index = vm.lista_projetos.indexOf(registro);
 			listar_projetos();
 			vm.index = index;
 			vm.id = vm.lista_projetos[index].id;
@@ -73,7 +74,8 @@ angular.module('sbAdminApp')
 			$('#EditProjetoModal').modal('show');
 		}
 
-		function edit_registro_adm(index) {
+		function edit_registro_adm(registro) {
+			var index = vm.lista_projetos.indexOf(registro);
 			listar_projetos();
 			vm.index = index;
 			vm.id = vm.lista_projetos[index].id;

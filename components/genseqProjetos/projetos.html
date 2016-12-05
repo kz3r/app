@@ -24,7 +24,7 @@
 							</tr>
 						</thead>
 						<tbody ng-repeat="registro in vm.lista_projetos | filter:vm.filtro_projeto | orderBy : 'autorizado_em'">
-							<tr ng-click="vm.edit_registro_adm($index)">
+							<tr ng-click="vm.edit_registro_adm(registro)">
 								<td>{{registro.nome}}</td>
 								<td>{{registro.descricao}}</td>
 								<td>{{registro.instituicao.nome}}</td>
@@ -61,7 +61,7 @@
 							</tr>
 						</thead>
 						<tbody ng-repeat="registro in vm.lista_projetos">
-							<tr ng-click="vm.edit_registro($index)">
+							<tr ng-click="vm.edit_registro(registro)">
 								<td>{{registro.nome}}</td>
 								<td>{{registro.descricao}}</td>
 								<td>{{registro.instituicao.nome}}</td>

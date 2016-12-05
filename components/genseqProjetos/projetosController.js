@@ -152,12 +152,13 @@ angular.module('sbAdminApp')
 				vm.nome = null;
 				vm.instituicao = null;
 				$('#AddProjetoModal').modal('hide');
-				Snackbar.show({ pos: 'bottom-center', text: 'Projeto adicionado com sucesso!', actionText: 'Ocultar', actionTextColor: '#00FF00'});
 				vm.resposta = angular.fromJson(data);
 				vm.id = vm.resposta.data.id;
 				salvar_membros();
 				limpar_membros();
 				listar_projetos();
+				Snackbar.show({ pos: 'bottom-center', text: 'Projeto adicionado com sucesso!', actionText: 'Ocultar', actionTextColor: '#00FF00'});
+				
 			  }
 
 			  function projetoErrorFn(data, status, headers, config) {
@@ -212,7 +213,8 @@ angular.module('sbAdminApp')
 			  }
 		}
 
-		function edit_registro(index) {
+		function edit_registro(registro) {
+			var index = vm.lista_projetos.indexOf(registro);
 			limpar_membros();
 			vm.id = vm.lista_projetos[index].id;
 			vm.nome = vm.lista_projetos[index].nome;
@@ -246,7 +248,8 @@ angular.module('sbAdminApp')
 			limpar_membros();
 			$('#AddProjetoModal').modal('show');
 			}
-		function edit_registro_adm(index) {
+		function edit_registro_adm(registro) {
+			var index = vm.lista_projetos.indexOf(registro);
 			limpar_membros();
 			$('#EditProjetoAdmModal').modal('show');
 			vm.id = vm.lista_projetos[index].id;
