@@ -29,13 +29,14 @@
 			}
 
 			function loginError(data, status, headers, config) {
-				console.error('Login Error! *sad face* ');
+				//console.error('Login Error! *sad face* ');
+				Snackbar.show({ pos: 'bottom-center', text: 'Usuário ou senha incorretos!', actionText: 'Ocultar', actionTextColor: '#FF0000'});
 			}
 		}
 
 		function logout() {
 			return $http.post( GENSEQ_API_Server + 'logout/').then(
-				logoutSuccess, logoutError);	
+				logoutSuccess, logoutError);
 
 			function logoutSuccess(data, status, headers, config) {
 				Autenticacao.unauthenticate();
@@ -43,7 +44,8 @@
 			}
 
 			function logoutError(data, status, headers, config) {
-				console.error('Erro ao tentar logout! *sad face* ')
+				//console.error('Erro ao tentar logout! *sad face* ')
+					Snackbar.show({ pos: 'bottom-center', text: 'Não foi possível efetuar o logout corretamente.', actionText: 'Ocultar', actionTextColor: '#FF0000'});
 			}
 
 		}

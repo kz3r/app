@@ -26,9 +26,10 @@
 			return $http.get('http://127.0.0.1:8000/genseq_api/nivelacesso/');
 		}
 
-		function get(emailUsuario) {
-			return $http.get('http://127.0.0.1:8000/genseq_api/usuarios/' + emailUsuario + '/');
-		}
+		// DEPRECIADO
+		// function get(emailUsuario) {
+		// 	return $http.get('http://127.0.0.1:8000/genseq_api/usuarios/' + emailUsuario + '/');
+		// }
 
 		function update(perfilUsuario) {
 			return $http.put('http://127.0.0.1:8000/genseq_api/usuarios/', perfilUsuario);
@@ -46,7 +47,8 @@
 			//Se o usuário foi registrado com sucesso, faz login
 			function registroSuccess(data, status, headers, config) {
 				//Autenticacao.login(email, password);
-				console.log("Loggar se usuário e fazer nada se ADM?");
+				Snackbar.show({ pos: 'bottom-center', text: 'Usuário cadastrado com sucesso. Faça login para acessar a aplicação', actionText: 'Ocultar', actionTextColor: '#00FF00'});
+				window.location = '/#/dashboard/home';
 			}
 
 			function registroError(data, status, headers, config) {
@@ -54,7 +56,7 @@
 				if(data.status == 400) {
 					snackMessage = "Esse email já foi utilizado ou está indísponível.";
 				} else {
-					snackMessage = "Ocorreu um problema no cadastro. Por favor, contate os administradores do sistema.";
+						snackMessage = "Ocorreu um problema no cadastro. Por favor, contate os administradores do sistema.";
 				}
 				Snackbar.show({ pos: 'bottom-center', text: snackMessage, actionText: 'Ocultar', actionTextColor: '#FF0000'});
 			}

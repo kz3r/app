@@ -63,8 +63,8 @@
 			// 	SnackBar.error('Usuário não encontrado.')
 			// }
 		}
-		
-		
+
+
 
 		function update() {
 
@@ -79,8 +79,20 @@
 		}
 
 		function update_adm() {
-
-			console.log("this");
+			var updateUser = {
+				id: this.id,
+				nome: this.nome,
+				email: this.email,
+				instituicao: this.instituicao.id,
+				nivel_acesso: this.niveis_acesso.id,
+				telefone: this.telefone,
+				status: null,
+				setor: this.setor,
+				password: "",
+				confirm_password: ""
+			}
+			//console.log("this");
+			Usuario.update(updateUser);
 		}
 
 		function registro() {
